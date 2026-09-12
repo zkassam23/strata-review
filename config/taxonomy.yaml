@@ -1,0 +1,205 @@
+# Flag taxonomy v1. Data, not code: replace this file when a taxonomy derived from real
+# outcomes exists. Every category has:
+#   label / client_label   headings for the agent and client reports
+#   threading              per_topic = facts group into threads by topic similarity
+#                          single    = all facts in the category form one building-level thread
+#   doc_types              document types whose facts feed this category
+#   absence                what the report says when no evidence for the category was supplied
+#   severity               ordered rules. The first rule whose conditions all hold wins.
+#                          Metrics are computed in code from the thread (see threads.py:metrics).
+#                          Opus receives these same rules as text and must justify any departure.
+#   exposure               how the unit-level exposure line is derived; "not_determinable" is
+#                          rendered verbatim as "Not determinable from these documents".
+version: 1
+severity_levels: [red, amber, note]
+absence_wording: "Not evidenced in the documents supplied"
+
+categories:
+  special_levies:
+    label: Special levies
+    client_label: One-time charges
+    threading: per_topic
+    doc_types: [council_minutes, agm_sgm_minutes, form_b, depreciation_report, financial_statements]
+    fact_kinds: [levy_passed, levy_proposed, major_work_discussed, quote_obtained, work_deferred, levy_none_on_form_b]
+    absence: "No council or general meeting minutes were supplied, so levies under discussion cannot be assessed."
+    severity:
+      - level: red
+        when: {any_of: [{metric: latest_status, in: [approved]}, {metric: max_building_cost, gte: 250000}]}
+        criteria: "A levy has been passed, or work with building-level cost at or above $250,000 has quotes or a proposal on the table (whether or not a vote has happened)."
+      - level: amber
+        when: {any_of: [{metric: max_building_cost, gte: 50000}, {metric: latest_status, in: [proposed, deferred]}]}
+        criteria: "Work between $50,000 and $250,000 is under discussion, or a proposal has been deferred without a cost yet."
+      - level: note
+        when: {always: true}
+        criteria: "Levy mentioned without a material cost, or the Form B records none."
+    exposure: {method: unit_share_of_range, from: [min_building_cost, max_building_cost]}
+
+  contingency_reserve:
+    label: Contingency reserve
+    client_label: The building's savings fund
+    threading: single
+    doc_types: [financial_statements, form_b, depreciation_report, agm_sgm_minutes, council_minutes]
+    fact_kinds: [crf_balance, crf_recommended_balance, crf_annual_contribution]
+    absence: "No financial statements or Form B balance were supplied, so the reserve position cannot be assessed."
+    severity:
+      - level: red
+        when: {all_of: [{metric: reserve_ratio, lt: 0.50}]}
+        criteria: "Current contingency balance is below 50% of the depreciation report's recommended balance."
+      - level: amber
+        when: {any_of: [{metric: reserve_ratio, lt: 0.80}, {metric: reserve_ratio, is_null: true}]}
+        criteria: "Balance is 50-80% of the recommendation, or no recommendation was supplied to compare against."
+      - level: note
+        when: {always: true}
+        criteria: "Balance at or above 80% of the recommended figure."
+    exposure: {method: fixed, text: "Not separately estimable"}
+
+  building_envelope:
+    label: Building envelope
+    client_label: The exterior of the building
+    threading: per_topic
+    doc_types: [engineering_report, council_minutes, agm_sgm_minutes, depreciation_report]
+    fact_kinds: [envelope_finding, envelope_recommendation, water_ingress, envelope_work_completed, envelope_work_tendered]
+    absence: "No building envelope or engineering report was supplied. Water ingress history cannot be assessed from these documents."
+    severity:
+      - level: red
+        when: {all_of: [{metric: has_remediation_recommendation, eq: true}, {metric: has_completion_record, eq: false}]}
+        criteria: "An engineer recommended remediation and no document supplied records the work being tendered or completed."
+      - level: amber
+        when: {any_of: [{metric: water_ingress_mentions, gte: 2}, {metric: has_remediation_recommendation, eq: true}]}
+        criteria: "Repeated water ingress in the minutes, or a recommendation whose completion is recorded."
+      - level: note
+        when: {always: true}
+        criteria: "Isolated envelope mention with no recommendation."
+    exposure: {method: unit_share_of_range_or_not_determinable, from: [min_building_cost, max_building_cost]}
+
+  depreciation_report_currency:
+    label: Depreciation report currency
+    client_label: How current the engineering forecast is
+    threading: single
+    doc_types: [depreciation_report, agm_sgm_minutes, council_minutes, form_b]
+    fact_kinds: [depreciation_report_date, depreciation_report_deferred]
+    absence: "No depreciation report was supplied. Under the Strata Property Act one is normally required; ask whether one exists."
+    severity:
+      - level: red
+        when: {any_of: [{metric: report_age_years, gt: 5}, {metric: report_age_years, is_null: true}]}
+        criteria: "Report older than five years, or none supplied."
+      - level: amber
+        when: {all_of: [{metric: report_age_years, gte: 3}]}
+        criteria: "Report between three and five years old; cost figures predate recent construction cost movement."
+      - level: note
+        when: {always: true}
+        criteria: "Report under three years old."
+    exposure: {method: none}
+
+  insurance_deductibles:
+    label: Insurance deductible
+    client_label: Insurance deductibles
+    threading: single
+    doc_types: [insurance_summary, council_minutes, agm_sgm_minutes, bylaws, form_b]
+    fact_kinds: [deductible, deductible_change, deductible_chargeback_bylaw]
+    absence: "No insurance summary was supplied, so deductibles cannot be assessed."
+    severity:
+      - level: red
+        when: {any_of: [{metric: water_deductible, gte: 250000}]}
+        criteria: "Water damage deductible at or above $250,000."
+      - level: amber
+        when: {any_of: [{metric: water_deductible, gte: 50000}, {metric: water_deductible, is_null: true}]}
+        criteria: "Water damage deductible between $50,000 and $250,000, or the water deductible is not stated."
+      - level: note
+        when: {always: true}
+        criteria: "Water damage deductible below $50,000."
+    exposure: {method: per_event_deductible, from: water_deductible}
+
+  litigation:
+    label: Litigation
+    client_label: Legal disputes
+    threading: per_topic
+    doc_types: [form_b, council_minutes, agm_sgm_minutes, financial_statements]
+    fact_kinds: [litigation_active, litigation_threatened, crt_dispute, litigation_none_on_form_b]
+    absence: "No Form B or minutes were supplied, so litigation cannot be assessed."
+    severity:
+      - level: red
+        when: {any_of: [{metric: has_active_litigation, eq: true}]}
+        criteria: "Active court or Civil Resolution Tribunal proceeding involving the strata."
+      - level: amber
+        when: {any_of: [{metric: has_threatened_litigation, eq: true}]}
+        criteria: "Dispute or demand letter recorded, no proceeding filed."
+      - level: note
+        when: {always: true}
+        criteria: "Form B records no proceedings and the minutes mention none."
+    exposure: {method: not_determinable}
+
+  bylaws:
+    label: Bylaws and rentals
+    client_label: Rules on renting, pets and short stays
+    threading: single
+    doc_types: [bylaws, form_b, council_minutes, agm_sgm_minutes]
+    fact_kinds: [rental_restriction, pet_restriction, age_restriction, short_term_rental_restriction, bylaw_amendment]
+    absence: "No bylaws were supplied, so rental, pet, age and short-term rental rules cannot be assessed."
+    severity:
+      - level: amber
+        when: {any_of: [{metric: has_rental_restriction, eq: true}, {metric: has_age_restriction, eq: true}]}
+        criteria: "A rental restriction or age restriction remains on the books. Enforceability after the 2022 Strata Property Act amendments is a legal question."
+      - level: note
+        when: {always: true}
+        criteria: "Pet or short-term rental rules present; no rental or age restriction."
+    exposure: {method: none}
+
+  parking_storage:
+    label: Parking and storage
+    client_label: Parking and storage
+    threading: single
+    doc_types: [form_b, bylaws, council_minutes]
+    fact_kinds: [parking_designation, storage_designation]
+    absence: "No Form B was supplied, so parking and storage designation cannot be confirmed."
+    severity:
+      - level: amber
+        when: {any_of: [{metric: parking_designation, in: [unknown, none]}, {metric: parking_designation, is_null: true}]}
+        criteria: "Parking or storage is not designated on the Form B, or the designation is not stated."
+      - level: note
+        when: {always: true}
+        criteria: "Parking and storage designation is stated (limited common property, common property allocation, or leased)."
+    exposure: {method: none}
+
+  form_b_unit:
+    label: Form B and arrears
+    client_label: Amounts owing on this unit
+    threading: single
+    doc_types: [form_b]
+    fact_kinds: [arrears, monthly_fees, levy_owing_on_unit, form_b_date]
+    absence: "No Form B was supplied. Nothing unit-specific (arrears, fees, levies owing) can be assessed."
+    severity:
+      - level: red
+        when: {any_of: [{metric: arrears_amount, gte: 5000}]}
+        criteria: "Arrears or levies owing on this strata lot at or above $5,000."
+      - level: amber
+        when: {any_of: [{metric: arrears_amount, gt: 0}, {metric: form_b_age_days, gt: 60}]}
+        criteria: "Any amount owing, or the Form B is more than 60 days old."
+      - level: note
+        when: {always: true}
+        criteria: "Nothing owing on a current Form B."
+    exposure: {method: fixed_from_metric, from: arrears_amount}
+
+# Report ordering (summary rows and flag order follow this list; severity sorts within it)
+report_order:
+  - special_levies
+  - building_envelope
+  - contingency_reserve
+  - insurance_deductibles
+  - bylaws
+  - depreciation_report_currency
+  - litigation
+  - parking_storage
+  - form_b_unit
+
+# Document types the classifier may assign
+doc_types:
+  council_minutes:      "Strata council meeting minutes"
+  agm_sgm_minutes:      "Annual or special general meeting minutes"
+  depreciation_report:  "Depreciation report"
+  form_b:               "Form B information certificate"
+  financial_statements: "Financial statements or budget"
+  insurance_summary:    "Insurance summary or certificate"
+  engineering_report:   "Engineering, building envelope or condition report"
+  bylaws:               "Bylaws or rules"
+  other:                "Other or unrecognised"

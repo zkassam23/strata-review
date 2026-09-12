@@ -1,0 +1,17 @@
+# Single tenant for now. Structured as one record so a tenant table can replace it.
+tenant:
+  id: default
+  agent_name: "Kassam & Associates"
+  brokerage: "eXp Realty Canada"
+  report_defaults:
+    disclaimer_agent: >-
+      Prepared as a reading aid from the strata documents supplied. It summarises those
+      documents and does not replace independent review by the buyer or their legal advisor,
+      nor does it constitute legal, financial or engineering advice. Figures are estimates
+      derived from the documents listed and may be incomplete where records were unavailable
+      or illegible. Verify every item against the source pages before relying on it.
+    disclaimer_client: >-
+      This summary was prepared for you from the strata documents provided. It is a plain
+      language guide to those documents and is not legal, financial or engineering advice.
+      Please review the documents yourself and speak to your lawyer before removing any
+      conditions.

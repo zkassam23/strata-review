@@ -1,0 +1,16 @@
+# Which Claude model does which job. IDs are the current-generation aliases.
+models:
+  classify: claude-haiku-4-5      # per-page document typing
+  extract: claude-sonnet-5        # structured extraction by document type
+  judge: claude-opus-5            # severity judgment on assembled threads, nowhere else
+# Approximate list prices per million tokens, used only for the cost line in the run summary.
+pricing_usd_per_mtok:
+  claude-haiku-4-5:  {input: 1.00,  output: 5.00}
+  claude-sonnet-5:   {input: 2.00,  output: 10.00}
+  claude-opus-5:     {input: 5.00,  output: 25.00}
+thresholds:
+  classification_confidence: 0.70   # below this a section is surfaced to the reader
+  ocr_confidence: 70                # tesseract mean word confidence (0-100); below this the page goes in the appendix
+  ocr_min_chars_per_page: 40        # fewer extractable characters than this => treat page as scanned
+  pages_per_classify_call: 8
+  pages_per_extract_call: 12

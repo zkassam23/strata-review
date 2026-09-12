@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+report/
+out/
+web_jobs/
+synth/package/
+*.egg-info/
