@@ -6,6 +6,7 @@ from inside the template for every flag and raises ReportRefused, which aborts t
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -66,6 +67,17 @@ def _meta_line(result: ReviewResult) -> str:
     return " · ".join(bits)
 
 
+_MONEY_RX = re.compile(r"\$([\d,]+)(?:\.\d+)?")
+
+
+def round_client_money(text: str) -> str:
+    """Client copy: every dollar figure of $1,000 or more rounded to the nearest thousand."""
+    def rep(m):
+        v = float(m.group(1).replace(",", ""))
+        return f"${round(v / 1000) * 1000:,.0f}" if v >= 1000 else m.group(0)
+    return _MONEY_RX.sub(rep, text)
+
+
 def build_context(result: ReviewResult, tenant: dict[str, Any], taxonomy: dict[str, Any], view: str) -> dict[str, Any]:
     flags = result.flags
     n_red = sum(f.severity == "red" for f in flags)
@@ -74,8 +86,21 @@ def build_context(result: ReviewResult, tenant: dict[str, Any], taxonomy: dict[s
     client_labels = {c: spec.get("client_label", spec["label"]) for c, spec in taxonomy["categories"].items()}
 
     summary_rows, quiet_line, absent_lines, body_flags = [], "", [], []
+    exposure_total = result.exposure_total
     if view == "client":
-        body_flags = [f for f in flags if f.severity in ("red", "amber")]
+        body_flags = []
+        for f in flags:
+            if f.severity not in ("red", "amber") or f.linked_to:
+                continue
+            cf = f.model_copy()
+            cf.client_title = round_client_money(cf.client_title)
+            cf.client_text = round_client_money(cf.client_text)
+            cf.client_exposure = round_client_money(cf.client_exposure)
+            body_flags.append(cf)
+        exposure_total = round_client_money(result.exposure_total)
+        shares = [f for f in body_flags if f.client_exposure.startswith("Roughly")]
+        if len(shares) == 1:   # one determinable share: the card and the tile show the same figure
+            exposure_total = shares[0].client_exposure.replace("Roughly ", "")
         note_cats = [client_labels[c.category] for c in result.category_status if c.state == "flagged" and c.severity == "note"]
         for c in result.category_status:
             if c.state == "flagged" and c.severity in ("red", "amber"):
@@ -126,7 +151,8 @@ def build_context(result: ReviewResult, tenant: dict[str, Any], taxonomy: dict[s
         "view": view, "result": result, "tenant": tenant, "generated_on": _fmt_date(result.generated_on),
         "address_line": _address_line(result), "meta_line": _meta_line(result),
         "risk_colour": RISK_COLOUR.get(result.overall_risk, "var(--paper)"), "n_red": n_red, "n_amber": n_amber,
-        "summary_rows": summary_rows, "body_flags": body_flags, "quiet_line": quiet_line, "absent_lines": absent_lines,
+        "summary_rows": summary_rows, "body_flags": body_flags, "exposure_total": exposure_total,
+        "questions": result.client_questions if view == "client" else result.questions, "quiet_line": quiet_line, "absent_lines": absent_lines,
         "minutes_line": minutes_line, "doc_lines": doc_lines, "absent_types": absent_types, "disagreements": disagreements,
         "usage_line": usage_line,
     }

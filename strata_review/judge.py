@@ -188,12 +188,14 @@ def template_narrative(thread: Thread, facts_by_id: dict[str, Fact], spec: dict[
                       "Nothing in the records we were given says whether that work happened. It may well have been done. We cannot tell from these documents, and it is worth asking before you go firm.")
             return {"title": title, "agent_text": agent, "client_title": "An unresolved question about the exterior", "client_text": client}
         n = m.get("water_ingress_mentions", 0)
-        title = f"{thread.topic.capitalize()}: {n} water ingress mention(s)" if n else f"{thread.topic.capitalize()} recorded"
+        when = [_fmt_date(f.date, short=False) for f in fs if f.kind == "water_ingress" and f.date]
+        when_s = (", ".join(when[:-1]) + " and " + when[-1]) if len(when) > 1 else (when[0] if when else "the period covered")
+        title = (f"Water ingress from the {thread.topic} recorded at {n} meetings" if n > 1 else f"Water ingress from the {thread.topic} recorded once") if n else f"{thread.topic.capitalize()} recorded"
         agent = "; ".join(f"{_fmt_date(f.date)}: {f.summary[:110]}" for f in fs[:4]) + ("." if fs else "")
         if m.get("has_completion_record"):
             agent += " A completion record exists in the documents."
-        return {"title": title, "agent_text": agent, "client_title": "Water or exterior issues noted in the records",
-                "client_text": f"The records mention {thread.topic} {n or len(fs)} time(s). Ask whether the cause has been fixed."}
+        return {"title": title, "agent_text": agent, "client_title": "Water leaks reported to the council",
+                "client_text": f"Owners reported water leaks in {when_s}. Ask whether the cause has been fixed and whether any unit was damaged."}
     if cat == "depreciation_report_currency":
         age, rd = m.get("report_age_years"), m.get("report_date")
         if rd:
@@ -389,10 +391,59 @@ def judge_threads(threads: list[Thread], facts: list[Fact], sections: list[Secti
             judge_severity=judge_sev, judge_rationale=t.judge_rationale, judge_disagreed=disagreed, narrative_source=source,
             stale=bool(t.metrics.get("stale_single_mention")),
         ))
+    link_related(flags, threads, facts_by_id)
     order = {c: i for i, c in enumerate(taxonomy.get("report_order", list(cats)))}
     flags.sort(key=lambda f: (-SEVERITY_RANK[f.severity], order.get(f.category, 99), f.flag_id))
     questions = [q for q in result.get("questions", []) if isinstance(q, str) and q.strip()][:6] or template_questions(flags)
     return flags, questions, [usage]
+
+
+def link_related(flags: list[Flag], threads: list[Thread], facts_by_id: dict[str, Fact]) -> None:
+    """A minutes-only envelope thread about the same subject as a levy thread (roof leaks vs roof
+    replacement) is folded into the levy flag on the client copy, so the buyer is not told to ask
+    about a cause the page has already explained. Both flags stay on the agent copy."""
+    from .threads import similar, topic_tokens
+    by_thread = {t.thread_id: t for t in threads}
+    levy = [f for f in flags if f.category == "special_levies" and f.severity in ("red", "amber")]
+    for f in flags:
+        if f.category != "building_envelope" or f.severity == "red":
+            continue
+        t = by_thread.get(f.thread_id)
+        if not t or not all(facts_by_id[i].doc_type in ("council_minutes", "agm_sgm_minutes") for i in t.fact_ids):
+            continue
+        for g in levy:
+            gt = by_thread.get(g.thread_id)
+            if gt and similar(topic_tokens(t.topic), topic_tokens(gt.topic)) >= 0.5:
+                when = [_fmt_date(facts_by_id[i].date, short=False) for i in t.fact_ids if facts_by_id[i].kind == "water_ingress" and facts_by_id[i].date]
+                when_s = (", ".join(when[:-1]) + " and " + when[-1]) if len(when) > 1 else (when[0] if when else "")
+                f.linked_to = g.flag_id
+                f.link_text = f"Owners reported leaks in {when_s}; that is what led to the replacement plan." if when_s else "Owners had reported leaks; that is what led to the replacement plan."
+                g.client_text = (g.client_text.rstrip() + " " + f.link_text).strip()
+                break
+
+
+def client_questions(flags: list[Flag], unit: str | None) -> list[str]:
+    """At most three, buyer language, tied to the red and amber flags in order."""
+    u = f"suite {unit}" if unit else "this unit"
+    out = []
+    for f in flags:
+        if f.severity not in ("red", "amber") or f.linked_to:
+            continue
+        q = {
+            "special_levies": f"When will owners vote on paying for the {f.title.split(':')[0].lower()}, and what would {u}'s share be?",
+            "building_envelope": "Has the exterior repair work the engineer recommended been done, and can the seller show the paperwork?",
+            "contingency_reserve": "How does the strata plan to close the gap between its savings and what the engineers say it needs?",
+            "insurance_deductibles": "What is the current water damage deductible, and would it be charged to me if a leak started in my unit?",
+            "bylaws": "Can I rent this unit out, and has the strata had legal advice on its old rental bylaw?",
+            "depreciation_report_currency": "When is the building's repair forecast being updated?",
+            "litigation": "What is the legal dispute mentioned in the records about?",
+            "form_b_unit": "Will the seller clear the amount owing on the unit before completion?",
+        }.get(f.category)
+        if q and q not in out:
+            out.append(q)
+        if len(out) == 3:
+            break
+    return out
 
 
 def category_status(flags: list[Flag], sections: list[Section], docs_n: int, taxonomy: dict[str, Any]) -> list[CategoryStatus]:

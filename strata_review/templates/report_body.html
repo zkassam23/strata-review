@@ -1,0 +1,92 @@
+  <div class="rpt">
+    <div class="rpthead">
+      <div class="brand">
+        <span class="k">{{ (tenant.agent_name or 'K')[0]|upper }}</span>
+        <span><b>{{ tenant.agent_name }}</b><span>{{ tenant.brokerage }}</span></span>
+      </div>
+      <div style="text-align:right">
+        <div class="muted">Strata due diligence — {{ 'client copy' if view == 'client' else 'agent copy' }}</div>
+        <div class="muted">{{ generated_on }}</div>
+      </div>
+    </div>
+
+    <p class="addr">{{ address_line }}</p>
+    <p class="meta">{{ meta_line }}</p>
+
+    <div class="tiles">
+      <div class="tile"><span>Overall risk</span><b style="color:{{ risk_colour }}">{{ result.overall_risk }}</b></div>
+      <div class="tile"><span>Flags</span><b>{{ n_red }} red · {{ n_amber }} amber</b></div>
+      <div class="tile"><span>{{ 'Estimated one-time cost to you' if view == 'client' else 'Estimated exposure' }}</span><b class="{{ 'sm' if exposure_total|length > 18 else '' }}">{{ exposure_total }}</b></div>
+    </div>
+
+    <div class="sum">
+      {% for row in summary_rows %}
+      <div class="sumrow"><span>{{ row.label }}</span>
+        {% if row.pill == 'red' %}<span class="pill p-red">Red</span>
+        {% elif row.pill == 'amber' %}<span class="pill p-amb">Amber</span>
+        {% elif row.pill == 'note' %}<span class="pill p-grn">{{ 'Nothing found' if view == 'client' else 'Note' }}</span>
+        {% elif row.pill == 'none_found' %}<span class="pill p-mut">No mention found</span>
+        {% else %}<span class="pill p-mut">Not supplied</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="body">
+      {% for f in body_flags %}
+      {% set cites = cites_or_refuse(f, view) %}
+      <div class="fl {{ 'red' if f.severity == 'red' else ('amb' if f.severity == 'amber' else '') }}">
+        <div class="ttl"><h3>{{ f.client_title if view == 'client' else f.title }}</h3>
+          {% set x = f.client_exposure if view == 'client' else f.exposure %}
+          {% if x and x != '—' %}<span class="muted" style="white-space:nowrap">{{ x }}</span>{% endif %}
+        </div>
+        <p>{{ f.client_text if view == 'client' else f.agent_text }}</p>
+        {% if view != 'client' %}
+          <p class="rule">Rule: {{ f.rule_criteria }}{% if f.stale %} (stale single mention){% endif %}{% if f.narrative_source == 'template' %} · template narrative{% endif %}</p>
+          {% if f.judge_disagreed %}
+          <div class="judge">Model cross-check disagreed: rule says <b>{{ f.rule_severity }}</b>, model says <b>{{ f.judge_severity }}</b>. {{ f.judge_rationale }}</div>
+          {% endif %}
+        {% endif %}
+        <div class="cites">{% for c in cites %}<span class="cite{{ ' abs' if c.kind == 'absence' else '' }}">{{ c.label }}</span>{% endfor %}</div>
+      </div>
+      {% endfor %}
+      {% if view == 'client' and quiet_line %}
+      <p class="quiet">{{ quiet_line }}</p>
+      {% endif %}
+      {% if absent_lines %}
+      {% for a in absent_lines %}<p class="quiet">{{ a }}</p>{% endfor %}
+      {% endif %}
+    </div>
+
+    {% if questions %}
+    <div class="ask">
+      <h3>{{ 'Questions worth asking before you go firm' if view == 'client' else 'Questions for the listing agent' }}</h3>
+      <ol>{% for q in questions %}<li>{{ q }}</li>{% endfor %}</ol>
+    </div>
+    {% endif %}
+
+    {% if view != 'client' %}
+    <div class="appx">
+      <h3>Appendix: what was read and what may have been missed</h3>
+      <p>{{ minutes_line }}</p>
+      <h4>Documents reviewed ({{ result.package.n_docs }} files, {{ result.package.n_pages }} pages, {{ result.package.n_scanned }} OCR'd)</h4>
+      <ul>{% for s in doc_lines %}<li>{{ s }}</li>{% endfor %}</ul>
+      <h4>Document types not supplied</h4>
+      {% if absent_types %}<ul>{% for a in absent_types %}<li>{{ a }}</li>{% endfor %}</ul>{% else %}<p>None. Every document type in the taxonomy was present.</p>{% endif %}
+      <h4>Pages with low OCR confidence ({{ result.low_ocr_pages|length }})</h4>
+      {% if result.low_ocr_pages %}<ul>{% for p in result.low_ocr_pages %}<li>{{ p.source_file }}, p. {{ p.page_number }} — confidence {{ p.ocr_confidence if p.ocr_confidence is not none else 'no text recognised' }}. Content on this page may have been missed.</li>{% endfor %}</ul>
+      {% else %}<p>None.</p>{% endif %}
+      <h4>Sections classified below the confidence threshold ({{ result.low_confidence_sections|length }})</h4>
+      {% if result.low_confidence_sections %}<ul>{% for s in result.low_confidence_sections %}<li>{{ s.source_file }}, pp. {{ s.page_start }}–{{ s.page_end }}: read as {{ s.doc_type.replace('_',' ') }} at {{ '%.0f'|format(s.confidence*100) }}% confidence{% if s.meeting_date %} ({{ s.meeting_date }}){% endif %}. Check the type by eye.</li>{% endfor %}</ul>
+      {% else %}<p>None.</p>{% endif %}
+      <h4>Extracted facts discarded for failing the page-anchor rule ({{ result.discarded|length }})</h4>
+      {% if result.discarded %}<ul>{% for d in result.discarded %}<li>{{ d.section_id }}: {{ d.reason }} — “{{ (d.payload.summary or '')[:90] }}”</li>{% endfor %}</ul>
+      {% else %}<p>None.</p>{% endif %}
+      <h4>Model cross-check disagreements ({{ disagreements|length }})</h4>
+      {% if disagreements %}<ul>{% for f in disagreements %}<li>{{ f.title }}: rule {{ f.rule_severity }}, model {{ f.judge_severity }}. {{ f.judge_rationale }}</li>{% endfor %}</ul>
+      {% else %}<p>None. The model agreed with every rule severity.</p>{% endif %}
+      {% if result.usage %}<h4>Model usage</h4><p>{{ usage_line }}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    <p class="disc">{{ tenant.report_defaults.disclaimer_client if view == 'client' else tenant.report_defaults.disclaimer_agent }}</p>
+  </div>

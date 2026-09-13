@@ -141,6 +141,7 @@ def assemble_result(state: RunState) -> ReviewResult:
         building=state.building, unit=state.settings.extra.get("unit"), package=ingest_mod.summarise(state.docs),
         sections=state.sections, facts=state.facts, discarded=state.discarded, threads=state.threads, flags=state.flags,
         category_status=state.category_status, questions=state.questions,
+        client_questions=judge_mod.client_questions(state.flags, state.settings.extra.get("unit")),
         low_ocr_pages=[p.model_copy(update={"text": ""}) for d in state.docs for p in d.pages if p.low_ocr],
         low_confidence_sections=[s for s in state.sections if s.low_confidence], usage=state.usage,
         overall_risk=judge_mod.overall_risk(state.flags), exposure_total=judge_mod.exposure_total(state.flags, tax),

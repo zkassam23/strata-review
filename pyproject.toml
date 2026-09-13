@@ -28,12 +28,14 @@ dev = ["pytest>=8,<10", "reportlab>=4,<6"]
 
 [project.scripts]
 strata-review = "strata_review.cli:main"
+strata-review-web = "web.app:main"
 
 [tool.setuptools.packages.find]
 include = ["strata_review*", "web*", "synth*"]
 
 [tool.setuptools.package-data]
 strata_review = ["templates/*.html"]
+web = ["templates/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

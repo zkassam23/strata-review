@@ -46,7 +46,7 @@
    "title": "Roof membrane replacement: levy proposed, not yet voted on",
    "agent_text": "The minutes track roof membrane replacement through 8 mention(s): 9 Sep 2025: quotes requested; 21 Oct 2025: quotes requested; 8 Nov 2025: quotes received ($780,000 \u2013 $940,000); 8 Apr 2026: deferred ($780,000 \u2013 $940,000); 28 Aug 2026: proposed. The building-level range on the latest priced mention is $780,000 \u2013 $940,000 (Council minutes, 8 Apr 2026, p. 39). No levy has been approved, so nothing appears on the Form B; a buyer reading only that document would see nothing. At this unit's entitlement the share would be $14,200 \u2013 $17,100 ($780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100).",
    "client_title": "The building is likely heading for a large one-time charge",
-   "client_text": "The strata council has been dealing with roof membrane replacement. Quotes for the whole building came in at $780,000 \u2013 $940,000. Nothing has been voted on yet, so it does not show on any official form. If it goes ahead and is paid for by a special levy, your share would land at roughly $14,000 \u2013 $17,000.",
+   "client_text": "The strata council has been dealing with roof membrane replacement. Quotes for the whole building came in at $780,000 \u2013 $940,000. Nothing has been voted on yet, so it does not show on any official form. If it goes ahead and is paid for by a special levy, your share would land at roughly $14,000 \u2013 $17,000. Owners reported leaks in October 2024 and June 2025; that is what led to the replacement plan.",
    "exposure": "$14,200 \u2013 $17,100",
    "client_exposure": "Roughly $14,000 \u2013 $17,000",
    "citations": [
@@ -121,7 +121,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": "$780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100"
+   "exposure_calc": "$780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag04",
@@ -188,7 +190,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag02",
@@ -237,17 +241,19 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag03",
    "category": "building_envelope",
    "thread_id": "t003",
    "severity": "amber",
-   "title": "Roof membrane leaks: 2 water ingress mention(s)",
+   "title": "Water ingress from the roof membrane leaks recorded at 2 meetings",
    "agent_text": "9 Oct 2024: Roof leak, unit 1801: The owner of unit 1801 reported water staining on the ceiling of the living room after h; 15 Jun 2025: Roof condition: Following a further leak affecting units 1801 and 1802 in May, council resolved to commission .",
-   "client_title": "Water or exterior issues noted in the records",
-   "client_text": "The records mention roof membrane leaks 2 time(s). Ask whether the cause has been fixed.",
+   "client_title": "Water leaks reported to the council",
+   "client_text": "Owners reported water leaks in October 2024 and June 2025. Ask whether the cause has been fixed and whether any unit was damaged.",
    "exposure": "Not determinable from these documents",
    "client_exposure": "",
    "citations": [
@@ -286,7 +292,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": "flag01",
+   "link_text": "Owners reported leaks in October 2024 and June 2025; that is what led to the replacement plan."
   },
   {
    "flag_id": "flag06",
@@ -347,7 +355,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": "water damage deductible $100,000"
+   "exposure_calc": "water damage deductible $100,000",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag08",
@@ -390,7 +400,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag05",
@@ -427,7 +439,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag07",
@@ -476,7 +490,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag09",
@@ -513,7 +529,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   },
   {
    "flag_id": "flag10",
@@ -550,7 +568,9 @@
    "judge_disagreed": false,
    "narrative_source": "template",
    "stale": false,
-   "exposure_calc": ""
+   "exposure_calc": "",
+   "linked_to": null,
+   "link_text": ""
   }
  ],
  "category_status": [
@@ -790,7 +810,7 @@
   {
    "thread_id": "t004",
    "category": "building_envelope",
-   "topic": "building envelope sealant remediation",
+   "topic": "water ingress north elevation",
    "fact_ids": [
     "f0075",
     "f0076",
@@ -1035,7 +1055,7 @@
   {
    "thread_id": "t010",
    "category": "form_b_unit",
-   "topic": "form b",
+   "topic": "strata fees",
    "fact_ids": [
     "f0006",
     "f0011",
@@ -1412,7 +1432,7 @@
   {
    "model": "claude-opus-5",
    "task": "assign_severity",
-   "input_tokens": 13015,
+   "input_tokens": 13014,
    "output_tokens": 418,
    "mocked": true
   }

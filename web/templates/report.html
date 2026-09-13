@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Strata review — report{% endblock %}
+{% block content %}
+<section class="wrap" id="stepRpt">
+  <div class="tabs">
+    <button class="tab" data-view="agent" aria-pressed="true">Agent version</button>
+    <button class="tab" data-view="client" aria-pressed="false">Client version</button>
+  </div>
+  <div id="view-agent">{{ agent_body|safe }}</div>
+  <div id="view-client" class="hide">{{ client_body|safe }}</div>
+  <div style="margin-top:22px">
+    <a class="btn" href="/jobs/{{ job.id }}/agent.html" download>Download agent copy</a>
+    <a class="btn gh" href="/jobs/{{ job.id }}/client.html" download>Download client copy</a>
+    <a class="btn gh" href="/jobs/{{ job.id }}/flags.json" download>flags.json</a>
+    <a class="btn gh" href="/">Run another</a>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+document.querySelectorAll(".tab").forEach(function(t){
+  t.addEventListener("click",function(){
+    document.querySelectorAll(".tab").forEach(function(o){o.setAttribute("aria-pressed","false")});
+    t.setAttribute("aria-pressed","true");
+    document.getElementById("view-agent").classList.toggle("hide",t.dataset.view!=="agent");
+    document.getElementById("view-client").classList.toggle("hide",t.dataset.view!=="client");
+  });
+});
+</script>
+{% endblock %}

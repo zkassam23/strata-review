@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Strata review — processing{% endblock %}
+{% block content %}
+<section class="wrap">
+  <h2>Processing</h2>
+  <div class="stages" id="stages">
+    {% for s in job.stages %}<div class="stg {{ s.status if s.status != 'pending' else '' }}" id="sg-{{ s.key }}"><i class="pip"></i><span>{{ s.label }}</span><small>{{ s.detail }}</small></div>{% endfor %}
+  </div>
+  <div class="bar"><i id="barFill" style="width:{{ (job.progress * 100)|round|int }}%"></i></div>
+  {% if job.state == 'failed' %}<p class="err">The review failed: {{ job.error }}</p><p><a class="btn gh" href="/">Try again</a></p>{% endif %}
+  <p class="muted" style="margin-top:16px">A real package takes six to twelve minutes. This page checks itself every two seconds and opens the report when it lands.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+{% if job.state != 'failed' %}
+<script>
+(function poll(){
+  fetch("/jobs/{{ job.id }}/status.json").then(function(r){return r.json()}).then(function(j){
+    j.stages.forEach(function(s){var el=document.getElementById("sg-"+s.key);el.className="stg "+(s.status==="pending"?"":s.status);el.querySelector("small").textContent=s.detail||"";});
+    document.getElementById("barFill").style.width=Math.round(j.progress*100)+"%";
+    if(j.state==="done"){window.location="/jobs/{{ job.id }}/report";return}
+    if(j.state==="failed"){window.location.reload();return}
+    setTimeout(poll,2000);
+  }).catch(function(){setTimeout(poll,4000)});
+})();
+</script>
+{% endif %}
+{% endblock %}

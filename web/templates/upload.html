@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Strata review — intake{% endblock %}
+{% block content %}
+<section class="wrap" id="up">
+  <h2>Intake</h2>
+  <p>One merged PDF from the listing brokerage, a folder of loose scans, a zip, or a shared link. Links behind a login cannot be read, so that path fails politely and asks for the files instead.</p>
+  {% if msg %}<p class="err">{{ msg }}</p>{% endif %}
+  <form id="form" method="post" action="/jobs" enctype="multipart/form-data">
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose strata documents">
+      <p class="big">Drop the package here</p>
+      <p class="muted" style="margin:0">PDF, or a zip of the whole folder. Scans are fine.</p>
+    </div>
+    <input type="file" id="file" name="files" multiple accept=".pdf,.zip" class="hide">
+    <div class="filelist" id="files"></div>
+    <div class="linkrow">
+      <input id="link" name="link" placeholder="Or paste a document link">
+      <button class="btn gh" type="button" onclick="tryLink()">Add link</button>
+    </div>
+    <p class="muted hide" id="linkMsg" style="margin-top:10px"></p>
+    <div class="cfg">
+      <div><label>Unit or suite under review</label><input name="unit" placeholder="1204"></div>
+      <div><label>Report brand (from tenant config)</label><input value="{{ tenant.agent_name }} · {{ tenant.brokerage }}" disabled></div>
+    </div>
+    <div style="margin-top:22px">
+      <button class="btn" id="go" type="submit" disabled>Start the review</button>
+    </div>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+var drop=document.getElementById("drop"),fileEl=document.getElementById("file"),dt=new DataTransfer();
+drop.addEventListener("click",function(){fileEl.click()});
+drop.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fileEl.click()}});
+["dragenter","dragover"].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add("over")})});
+["dragleave","drop"].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove("over")})});
+drop.addEventListener("drop",function(e){add(e.dataTransfer.files)});
+fileEl.addEventListener("change",function(){add(fileEl.files,true)});
+function kb(n){return n>1048576?(n/1048576).toFixed(1)+" MB":Math.max(1,Math.round(n/1024))+" KB"}
+function add(list,fromInput){
+  for(var i=0;i<list.length;i++){if(!fromInput)dt.items.add(list[i]);}
+  if(!fromInput)fileEl.files=dt.files; else {dt=new DataTransfer();for(var j=0;j<fileEl.files.length;j++)dt.items.add(fileEl.files[j]);}
+  paint();
+}
+function paint(){
+  var out="";for(var i=0;i<fileEl.files.length;i++){out+='<div class="filerow"><span>'+fileEl.files[i].name+'</span><span>'+kb(fileEl.files[i].size)+'</span></div>'}
+  document.getElementById("files").innerHTML=out;
+  document.getElementById("go").disabled=fileEl.files.length===0&&!document.getElementById("link").value.trim();
+}
+document.getElementById("link").addEventListener("input",paint);
+function tryLink(){
+  var v=document.getElementById("link").value.trim(),m=document.getElementById("linkMsg");
+  m.classList.remove("hide");
+  if(!v){m.textContent="Paste a link first.";return}
+  m.textContent="Checking the link…";
+  var fd=new FormData();fd.append("link",v);
+  fetch("/link-check",{method:"POST",body:fd}).then(function(r){return r.json()}).then(function(j){m.textContent=j.message;paint()})
+    .catch(function(){m.textContent="That link could not be reached. Download the documents and drop them above."});
+}
+</script>
+{% endblock %}

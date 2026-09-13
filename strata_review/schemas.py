@@ -129,6 +129,8 @@ class Flag(BaseModel):
     narrative_source: Literal["model", "template"] = "template"
     stale: bool = False
     exposure_calc: str = ""
+    linked_to: Optional[str] = None      # client copy folds this flag into the linked one
+    link_text: str = ""                  # sentence added to the linked flag's client text
 
 
 class CategoryStatus(BaseModel):
@@ -167,6 +169,7 @@ class ReviewResult(BaseModel):
     flags: list[Flag]
     category_status: list[CategoryStatus]
     questions: list[str] = Field(default_factory=list)
+    client_questions: list[str] = Field(default_factory=list)
     low_ocr_pages: list[Page] = Field(default_factory=list)
     low_confidence_sections: list[Section] = Field(default_factory=list)
     usage: list[Usage] = Field(default_factory=list)
