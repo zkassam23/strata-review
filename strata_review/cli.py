@@ -145,6 +145,23 @@ def main(argv: list[str] | None = None) -> int:
         print(f"\nOverall risk: {r.overall_risk}   flags: {sum(f.severity=='red' for f in r.flags)} red, {sum(f.severity=='amber' for f in r.flags)} amber, {sum(f.severity=='note' for f in r.flags)} note   exposure: {r.exposure_total}")
         for f in r.flags:
             print(f"  [{f.severity.upper():5}] {f.title}" + ("   (judge disagreed)" if f.judge_disagreed else ""))
+        print(f"\nDIAGNOSTICS (also in the agent copy appendix)")
+        print(f"Discarded by the anchor rule ({len(r.discarded)}):")
+        for d in r.discarded:
+            print(f"  {d.section_id}: {d.reason}  <- {str(d.payload.get('summary', ''))[:80]!r}")
+        print(f"Low-confidence sections ({len(r.low_confidence_sections)}):")
+        for s in r.low_confidence_sections:
+            print(f"  {s.source_file} pp.{s.page_start}-{s.page_end}: {s.doc_type} at {s.confidence:.2f}" + (f" ({s.meeting_date})" if s.meeting_date else ""))
+        print(f"Low-OCR pages ({len(r.low_ocr_pages)}):")
+        for p in r.low_ocr_pages:
+            print(f"  {p.source_file} p.{p.page_number}: confidence {p.ocr_confidence}")
+        dis = [f for f in r.flags if f.judge_disagreed]
+        print(f"Model cross-check disagreements ({len(dis)}):")
+        for f in dis:
+            print(f"  {f.category}: rule={f.rule_severity} judge={f.judge_severity}: {f.judge_rationale}")
+        tpl = [f for f in r.flags if f.narrative_source == 'template']
+        if tpl and not any(u.mocked for u in r.usage):
+            print(f"Narratives replaced by template after failing the figure check ({len(tpl)}): " + ", ".join(f.category for f in tpl))
         for k, pth in state.outputs.items():
             print(f"  wrote {pth}")
     print_cost(state)
