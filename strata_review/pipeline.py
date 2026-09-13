@@ -8,9 +8,10 @@ from pathlib import Path
 from typing import Any, Callable
 
 from . import classify as classify_mod
+from . import extract as extract_mod
 from . import ingest as ingest_mod
 from .llm import LLM, make_llm, usage_cost
-from .schemas import PageClassification, Section, SourceDoc, Usage
+from .schemas import DiscardedFact, Fact, PageClassification, Section, SourceDoc, Usage
 from .settings import Settings, load_settings
 
 log = logging.getLogger(__name__)
@@ -34,6 +35,9 @@ class RunState:
     docs: list[SourceDoc] = field(default_factory=list)
     classifications: list[PageClassification] = field(default_factory=list)
     sections: list[Section] = field(default_factory=list)
+    facts: list[Fact] = field(default_factory=list)
+    discarded: list[DiscardedFact] = field(default_factory=list)
+    building: dict[str, Any] = field(default_factory=dict)
     usage: list[Usage] = field(default_factory=list)
     extra: dict[str, Any] = field(default_factory=dict)
 
@@ -67,6 +71,21 @@ def stage_classify(state: RunState, progress: ProgressFn) -> None:
     progress("classify", "done", f"{len(sections)} sections, {low} below confidence threshold")
 
 
+def stage_extract(state: RunState, progress: ProgressFn) -> None:
+    th = state.settings.thresholds
+    progress("extract", "run", "")
+    facts, discarded, usage = extract_mod.extract(
+        state.sections, state.docs, state.llm, state.settings.models["extract"], state.settings.taxonomy,
+        unit=state.settings.extra.get("unit"), pages_per_call=th.get("pages_per_extract_call", 12),
+        progress=lambda d: progress("extract", "run", d),
+    )
+    state.facts, state.discarded = facts, discarded
+    state.building = extract_mod.building_metadata(facts, state.settings.taxonomy)
+    state.usage.extend(usage)
+    absent = sum(f.kind == "document_absent" for f in facts)
+    progress("extract", "done", f"{len(facts) - absent} facts anchored, {len(discarded)} discarded, {absent} document types absent")
+
+
 def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None = None,
         stop_after: str | None = None, progress: ProgressFn = _noop, workdir: Path | None = None) -> RunState:
     settings = settings or load_settings()
@@ -76,6 +95,9 @@ def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None =
         return state
     stage_classify(state, progress)
     if stop_after == "classify":
+        return state
+    stage_extract(state, progress)
+    if stop_after == "extract":
         return state
     return state
 

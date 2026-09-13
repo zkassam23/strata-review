@@ -40,6 +40,29 @@ def print_sections(state: pipeline.RunState) -> None:
             print(f"  {c.doc_id} p.{c.page_number}: {c.smoothed_from} -> {c.doc_type}")
 
 
+def print_facts(state: pipeline.RunState) -> None:
+    print(f"\nFacts ({len(state.facts)}), grouped by section:")
+    by_sec = {}
+    for f in state.facts:
+        by_sec.setdefault(f.section_id, []).append(f)
+    secs = {s.section_id: s for s in state.sections}
+    for sid, facts in by_sec.items():
+        s = secs.get(sid)
+        head = f"{s.doc_type} {s.source_file} p.{s.page_start}-{s.page_end}" + (f" ({s.meeting_date})" if s and s.meeting_date else "") if s else "(generated: absences)"
+        print(f"  -- {head}")
+        for f in facts:
+            amt = ""
+            if f.amount_min is not None:
+                amt = f" ${f.amount_min:,.0f}" + (f"-${f.amount_max:,.0f}" if f.amount_max not in (None, f.amount_min) else "")
+            pages = ",".join(str(c.page_number) for c in f.citations if c.page_number)
+            print(f"     {f.fact_id} {f.category}/{f.kind:26} {(f.status or ''):16} {(f.topic or '')[:34]:34}{amt:22} p.{pages or '-'}  {f.summary[:70]}")
+    print(f"\nDiscarded by the anchor rule ({len(state.discarded)}):")
+    for d in state.discarded:
+        print(f"  {d.section_id}: {d.reason}  <- {str(d.payload.get('summary', ''))[:70]!r}")
+    if state.building:
+        print("\nBuilding metadata:", {k: v for k, v in state.building.items() if not k.endswith('_cite')})
+
+
 def print_cost(state: pipeline.RunState) -> None:
     c = pipeline.cost_summary(state)
     tag = " (mock, estimated)" if c["mocked"] else ""
@@ -75,11 +98,15 @@ def main(argv: list[str] | None = None) -> int:
     state = pipeline.run(Path(args.input), settings=settings, stop_after=args.stop_after, progress=_progress)
     if args.stop_after in ("ingest", "classify") or not hasattr(state, "result"):
         print_sections(state)
+    if state.facts:
+        print_facts(state)
     print_cost(state)
     if args.dump:
         payload = {"docs": [d.model_dump(exclude={"pages"}) | {"pages": [p.model_dump(exclude={"text"}) for p in d.pages]} for d in state.docs],
                    "sections": [s.model_dump() for s in state.sections],
-                   "classifications": [c.model_dump() for c in state.classifications]}
+                   "classifications": [c.model_dump() for c in state.classifications],
+                   "facts": [f.model_dump() for f in state.facts], "discarded": [d.model_dump() for d in state.discarded],
+                   "building": state.building}
         Path(args.dump).write_text(json.dumps(payload, indent=1), "utf-8")
     return 0
 

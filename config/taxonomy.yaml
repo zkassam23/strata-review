@@ -14,13 +14,28 @@ version: 1
 severity_levels: [red, amber, note]
 absence_wording: "Not evidenced in the documents supplied"
 
+# Action status vocabulary for minutes items. Threading orders these to find the latest state.
+statuses: [discussed, quotes_requested, quotes_received, proposed, deferred, approved, tendered, completed, recommended, none]
+
+# Building-level facts that are not flags but feed the report header and exposure maths.
+metadata:
+  category: building
+  fact_kinds: [address, strata_plan, city, year_built, construction, strata_lot, unit_entitlement, total_unit_entitlement, unit_number]
+  doc_types: [form_b, depreciation_report, financial_statements, council_minutes, agm_sgm_minutes, insurance_summary, engineering_report, bylaws]
+
+# Absence facts are generated in code (extract.py), never by the model. One per taxonomy
+# document type with no section in the package.
+absence:
+  category: absence
+  fact_kind: document_absent
+
 categories:
   special_levies:
     label: Special levies
     client_label: One-time charges
     threading: per_topic
     doc_types: [council_minutes, agm_sgm_minutes, form_b, depreciation_report, financial_statements]
-    fact_kinds: [levy_passed, levy_proposed, major_work_discussed, quote_obtained, work_deferred, levy_none_on_form_b]
+    fact_kinds: [levy_passed, levy_proposed, major_work_discussed, quote_obtained, work_deferred, levy_none_stated]
     absence: "No council or general meeting minutes were supplied, so levies under discussion cannot be assessed."
     severity:
       - level: red
@@ -115,7 +130,7 @@ categories:
     client_label: Legal disputes
     threading: per_topic
     doc_types: [form_b, council_minutes, agm_sgm_minutes, financial_statements]
-    fact_kinds: [litigation_active, litigation_threatened, crt_dispute, litigation_none_on_form_b]
+    fact_kinds: [litigation_active, litigation_threatened, crt_dispute, litigation_none_stated]
     absence: "No Form B or minutes were supplied, so litigation cannot be assessed."
     severity:
       - level: red
@@ -134,7 +149,7 @@ categories:
     client_label: Rules on renting, pets and short stays
     threading: single
     doc_types: [bylaws, form_b, council_minutes, agm_sgm_minutes]
-    fact_kinds: [rental_restriction, pet_restriction, age_restriction, short_term_rental_restriction, bylaw_amendment]
+    fact_kinds: [rental_restriction, pet_restriction, age_restriction, short_term_rental_restriction, bylaw_amendment, rentals_count]
     absence: "No bylaws were supplied, so rental, pet, age and short-term rental rules cannot be assessed."
     severity:
       - level: amber
