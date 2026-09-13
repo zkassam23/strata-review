@@ -9,9 +9,11 @@ from typing import Any, Callable
 
 from . import classify as classify_mod
 from . import extract as extract_mod
+from . import judge as judge_mod
+from . import threads as threads_mod
 from . import ingest as ingest_mod
 from .llm import LLM, make_llm, usage_cost
-from .schemas import DiscardedFact, Fact, PageClassification, Section, SourceDoc, Usage
+from .schemas import CategoryStatus, DiscardedFact, Fact, Flag, PageClassification, Section, SourceDoc, Thread, Usage
 from .settings import Settings, load_settings
 
 log = logging.getLogger(__name__)
@@ -38,6 +40,11 @@ class RunState:
     facts: list[Fact] = field(default_factory=list)
     discarded: list[DiscardedFact] = field(default_factory=list)
     building: dict[str, Any] = field(default_factory=dict)
+    threads: list[Thread] = field(default_factory=list)
+    flags: list[Flag] = field(default_factory=list)
+    questions: list[str] = field(default_factory=list)
+    category_status: list[CategoryStatus] = field(default_factory=list)
+    anchor_errors: list[str] = field(default_factory=list)
     usage: list[Usage] = field(default_factory=list)
     extra: dict[str, Any] = field(default_factory=dict)
 
@@ -86,6 +93,45 @@ def stage_extract(state: RunState, progress: ProgressFn) -> None:
     progress("extract", "done", f"{len(facts) - absent} facts anchored, {len(discarded)} discarded, {absent} document types absent")
 
 
+def stage_thread(state: RunState, progress: ProgressFn) -> None:
+    progress("thread", "run", "")
+    tax = state.settings.taxonomy
+    state.threads = threads_mod.build_threads(state.facts, state.sections, state.building, tax)
+    progress("thread", "run", f"{len(state.threads)} threads assembled; judging severity")
+    flags, questions, usage = judge_mod.judge_threads(state.threads, state.facts, state.sections, state.building, tax,
+                                                      state.llm, state.settings.models["judge"])
+    state.flags, state.questions = flags, questions
+    state.usage.extend(usage)
+    state.category_status = judge_mod.category_status(flags, state.sections, len(state.docs), tax)
+    reds = sum(f.severity == "red" for f in flags)
+    ambers = sum(f.severity == "amber" for f in flags)
+    dis = sum(f.judge_disagreed for f in flags)
+    progress("thread", "done", f"{len(state.threads)} threads, {len(flags)} flags ({reds} red, {ambers} amber), {dis} judge disagreement(s)")
+
+
+def stage_anchor(state: RunState, progress: ProgressFn) -> None:
+    """Every flag must carry citations, and every page citation must resolve to a real page."""
+    progress("anchor", "run", "")
+    pages = {(d.source_file, p.page_number) for d in state.docs for p in d.pages}
+    errors = []
+    kept = []
+    for fl in state.flags:
+        if not fl.citations:
+            errors.append(f"{fl.flag_id} {fl.category}: no citations; flag removed")
+            continue
+        bad = [c for c in fl.citations if c.kind == "page" and (c.source_doc, c.page_number) not in pages]
+        if bad:
+            errors.append(f"{fl.flag_id} {fl.category}: citation(s) do not resolve: {[c.label for c in bad]}; flag removed")
+            continue
+        kept.append(fl)
+    state.flags = kept
+    state.anchor_errors = errors
+    for e in errors:
+        log.error("anchor check: %s", e)
+    n_cites = sum(len(f.citations) for f in kept)
+    progress("anchor", "done", f"{len(kept)} flags, {n_cites} citations verified, {len(errors)} removed")
+
+
 def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None = None,
         stop_after: str | None = None, progress: ProgressFn = _noop, workdir: Path | None = None) -> RunState:
     settings = settings or load_settings()
@@ -98,6 +144,12 @@ def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None =
         return state
     stage_extract(state, progress)
     if stop_after == "extract":
+        return state
+    stage_thread(state, progress)
+    if stop_after == "thread":
+        return state
+    stage_anchor(state, progress)
+    if stop_after == "anchor":
         return state
     return state
 

@@ -103,6 +103,8 @@ class Thread(BaseModel):
     metrics: dict[str, Any] = Field(default_factory=dict)
     rule_severity: Optional[Severity] = None
     rule_criteria: Optional[str] = None
+    judge_severity: Optional[Severity] = None
+    judge_rationale: Optional[str] = None
 
 
 class Flag(BaseModel):
@@ -116,20 +118,26 @@ class Flag(BaseModel):
     client_text: str
     exposure: str                    # agent-facing exposure line
     client_exposure: str = ""        # plain-language exposure line (may be empty)
-    citations: list[Citation]
+    citations: list[Citation] = Field(min_length=1)   # a flag with no citations cannot exist
     client_citations: list[Citation] = Field(default_factory=list)
     rationale: str = ""
     rule_severity: Optional[Severity] = None
+    rule_criteria: str = ""
+    judge_severity: Optional[Severity] = None
+    judge_rationale: str = ""
     judge_disagreed: bool = False
+    narrative_source: Literal["model", "template"] = "template"
+    stale: bool = False
+    exposure_calc: str = ""
 
 
 class CategoryStatus(BaseModel):
     """One summary row per taxonomy category."""
     category: str
     label: str
-    state: Literal["flagged", "clear", "absent"]
+    state: Literal["flagged", "none_found", "absent"]
     severity: Optional[Severity] = None
-    absence_text: Optional[str] = None
+    text: Optional[str] = None       # wording for absent / none_found rows
 
 
 class Usage(BaseModel):

@@ -17,6 +17,18 @@ absence_wording: "Not evidenced in the documents supplied"
 # Action status vocabulary for minutes items. Threading orders these to find the latest state.
 statuses: [discussed, quotes_requested, quotes_received, proposed, deferred, approved, tendered, completed, recommended, none]
 
+# Stale single mention rule. A thread whose only mention is older than `months` (measured
+# against the most recent document in the package) and whose status is not an open action is
+# capped at `cap`. It is still reported, with a "stale" marker, never dropped. Open actions
+# (exempt_statuses) never expire: an approved levy or an engineer's recommendation stays live.
+staleness:
+  months: 12
+  cap: note
+  exempt_statuses: [approved, recommended, quotes_requested, quotes_received, deferred, proposed, tendered]
+
+# Wording the report uses when a figure cannot be derived. Never edit code to add a range.
+not_determinable: "Not determinable from these documents"
+
 # Building-level facts that are not flags but feed the report header and exposure maths.
 metadata:
   category: building
@@ -85,7 +97,7 @@ categories:
       - level: note
         when: {always: true}
         criteria: "Isolated envelope mention with no recommendation."
-    exposure: {method: unit_share_of_range_or_not_determinable, from: [min_building_cost, max_building_cost]}
+    exposure: {method: not_determinable}   # completion unknown, so a share of the 2019 cost opinion would mislead
 
   depreciation_report_currency:
     label: Depreciation report currency

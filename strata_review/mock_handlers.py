@@ -517,3 +517,18 @@ HANDLERS.update({
     "extract_engineering_report": extract_engineering,
     "extract_bylaws": extract_bylaws,
 })
+
+
+# ---- severity judgment ------------------------------------------------------------------
+# The mock agrees with the rule severity and returns no narrative, so judge.py uses the
+# deterministic template text. Disagreement paths are exercised in tests with a fake client.
+
+def assign_severity(user: str) -> dict:
+    import json
+    payload = json.loads(user.split("THREADS:\n", 1)[1])
+    js = [{"thread_id": t["thread_id"], "severity": t["rule_severity"] or "note", "rationale": "Mock: rule severity applied as-is.",
+           "title": "", "agent_text": "", "client_title": "", "client_text": ""} for t in payload["threads"]]
+    return {"judgments": js, "questions": []}
+
+
+HANDLERS["assign_severity"] = assign_severity

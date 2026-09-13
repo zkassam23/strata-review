@@ -63,6 +63,43 @@ def print_facts(state: pipeline.RunState) -> None:
         print("\nBuilding metadata:", {k: v for k, v in state.building.items() if not k.endswith('_cite')})
 
 
+def print_threads(state: pipeline.RunState) -> None:
+    facts = {f.fact_id: f for f in state.facts}
+    print(f"\nThreads ({len(state.threads)}):")
+    for t in state.threads:
+        m = t.metrics
+        tag = " STALE" if m.get("stale_single_mention") else ""
+        dis = f"  judge={t.judge_severity} DISAGREES" if t.judge_severity and t.judge_severity != t.rule_severity else ""
+        print(f"  {t.thread_id} {t.category:28} {t.topic[:36]:36} rule={t.rule_severity:5}{tag}{dis}  mentions={m.get('n_mentions')} {t.first_date or ''}..{t.last_date or ''} latest={m.get('latest_status')}")
+        for fid in t.fact_ids[:8]:
+            f = facts[fid]
+            amt = f" {f.amount_min:,.0f}-{f.amount_max:,.0f}" if f.amount_max is not None and f.amount_min != f.amount_max else (f" {f.amount_max:,.0f}" if f.amount_max is not None else "")
+            print(f"       {f.date or '          '} {f.doc_type[:12]:12} {(f.status or ''):16}{amt:22} {f.citations[0].label}")
+        if len(t.fact_ids) > 8:
+            print(f"       ... {len(t.fact_ids) - 8} more")
+        keys = [k for k in ("reserve_ratio", "crf_balance", "crf_recommended", "water_deductible", "report_age_years", "completion",
+                            "max_building_cost", "arrears_amount", "parking_designation", "storage_designation", "has_rental_restriction") if k in m]
+        print("       metrics: " + ", ".join(f"{k}={m[k]}" for k in keys) + f"  | exposure: {m.get('exposure')}" + (f"  [{m['exposure_calc']}]" if m.get("exposure_calc") else ""))
+        print(f"       rule: {t.rule_criteria}")
+    print(f"\nFlags ({len(state.flags)}):")
+    for f in state.flags:
+        print(f"  [{f.severity.upper():5}] {f.category:28} {f.title}   exposure: {f.exposure}")
+        if f.judge_disagreed:
+            print(f"          JUDGE DISAGREED: rule={f.rule_severity} judge={f.judge_severity}: {f.judge_rationale[:150]}")
+        for c in f.citations:
+            print(f"          - {c.label}")
+    print("\nCategory status:")
+    for c in state.category_status:
+        print(f"  {c.label:32} {c.state:10} {c.severity or ''}  {c.text or ''}")
+    print("\nQuestions for the listing agent:")
+    for q in state.questions:
+        print(f"  - {q}")
+    if state.anchor_errors:
+        print("\nAnchor check removed flags:")
+        for e in state.anchor_errors:
+            print("  " + e)
+
+
 def print_cost(state: pipeline.RunState) -> None:
     c = pipeline.cost_summary(state)
     tag = " (mock, estimated)" if c["mocked"] else ""
@@ -98,15 +135,19 @@ def main(argv: list[str] | None = None) -> int:
     state = pipeline.run(Path(args.input), settings=settings, stop_after=args.stop_after, progress=_progress)
     if args.stop_after in ("ingest", "classify") or not hasattr(state, "result"):
         print_sections(state)
-    if state.facts:
+    if state.facts and args.stop_after == "extract":
         print_facts(state)
+    if state.threads:
+        print_threads(state)
     print_cost(state)
     if args.dump:
         payload = {"docs": [d.model_dump(exclude={"pages"}) | {"pages": [p.model_dump(exclude={"text"}) for p in d.pages]} for d in state.docs],
                    "sections": [s.model_dump() for s in state.sections],
                    "classifications": [c.model_dump() for c in state.classifications],
                    "facts": [f.model_dump() for f in state.facts], "discarded": [d.model_dump() for d in state.discarded],
-                   "building": state.building}
+                   "building": state.building, "threads": [t.model_dump() for t in state.threads],
+                   "flags": [f.model_dump() for f in state.flags], "questions": state.questions,
+                   "category_status": [c.model_dump() for c in state.category_status]}
         Path(args.dump).write_text(json.dumps(payload, indent=1), "utf-8")
     return 0
 
