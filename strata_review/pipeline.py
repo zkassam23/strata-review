@@ -10,10 +10,11 @@ from typing import Any, Callable
 from . import classify as classify_mod
 from . import extract as extract_mod
 from . import judge as judge_mod
+from . import report as report_mod
 from . import threads as threads_mod
 from . import ingest as ingest_mod
 from .llm import LLM, make_llm, usage_cost
-from .schemas import CategoryStatus, DiscardedFact, Fact, Flag, PageClassification, Section, SourceDoc, Thread, Usage
+from .schemas import CategoryStatus, DiscardedFact, Fact, Flag, PageClassification, ReviewResult, Section, SourceDoc, Thread, Usage
 from .settings import Settings, load_settings
 
 log = logging.getLogger(__name__)
@@ -45,6 +46,8 @@ class RunState:
     questions: list[str] = field(default_factory=list)
     category_status: list[CategoryStatus] = field(default_factory=list)
     anchor_errors: list[str] = field(default_factory=list)
+    result: ReviewResult | None = None
+    outputs: dict[str, Path] = field(default_factory=dict)
     usage: list[Usage] = field(default_factory=list)
     extra: dict[str, Any] = field(default_factory=dict)
 
@@ -132,8 +135,31 @@ def stage_anchor(state: RunState, progress: ProgressFn) -> None:
     progress("anchor", "done", f"{len(kept)} flags, {n_cites} citations verified, {len(errors)} removed")
 
 
+def assemble_result(state: RunState) -> ReviewResult:
+    tax = state.settings.taxonomy
+    return ReviewResult(
+        building=state.building, unit=state.settings.extra.get("unit"), package=ingest_mod.summarise(state.docs),
+        sections=state.sections, facts=state.facts, discarded=state.discarded, threads=state.threads, flags=state.flags,
+        category_status=state.category_status, questions=state.questions,
+        low_ocr_pages=[p.model_copy(update={"text": ""}) for d in state.docs for p in d.pages if p.low_ocr],
+        low_confidence_sections=[s for s in state.sections if s.low_confidence], usage=state.usage,
+        overall_risk=judge_mod.overall_risk(state.flags), exposure_total=judge_mod.exposure_total(state.flags, tax),
+    )
+
+
+def stage_report(state: RunState, out_dir: Path | None, progress: ProgressFn) -> None:
+    progress("report", "run", "")
+    state.result = assemble_result(state)
+    if out_dir:
+        state.outputs = report_mod.write_outputs(state.result, state.settings.tenant, state.settings.taxonomy, out_dir)
+        progress("report", "done", f"wrote {', '.join(p.name for p in state.outputs.values())} to {out_dir}")
+    else:
+        progress("report", "done", "result assembled (no output folder)")
+
+
 def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None = None,
-        stop_after: str | None = None, progress: ProgressFn = _noop, workdir: Path | None = None) -> RunState:
+        stop_after: str | None = None, progress: ProgressFn = _noop, workdir: Path | None = None,
+        out_dir: Path | None = None) -> RunState:
     settings = settings or load_settings()
     state = RunState(settings=settings, llm=llm or make_llm(settings))
     stage_ingest(state, Path(input_path), workdir, progress)
@@ -151,6 +177,7 @@ def run(input_path: Path, *, settings: Settings | None = None, llm: LLM | None =
     stage_anchor(state, progress)
     if stop_after == "anchor":
         return state
+    stage_report(state, out_dir, progress)
     return state
 
 

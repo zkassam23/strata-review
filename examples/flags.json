@@ -1,0 +1,1420 @@
+{
+ "generated_on": "2026-09-13",
+ "building": {
+  "strata_plan": "BCS3392",
+  "strata_plan_cite": "Form B, p. 1",
+  "strata_lot": "118",
+  "strata_lot_cite": "Form B, p. 1",
+  "unit_number": "1204",
+  "unit_number_cite": "Form B, p. 1",
+  "address": "2135 Springer Avenue, Burnaby, BC",
+  "address_cite": "Form B, p. 1",
+  "unit_entitlement": "182",
+  "unit_entitlement_cite": "Form B, p. 2",
+  "year_built": "2009",
+  "year_built_cite": "Depreciation report, p. 2",
+  "construction": "concrete",
+  "construction_cite": "Depreciation report, p. 2",
+  "total_unit_entitlement": "10000",
+  "total_unit_entitlement_cite": "Depreciation report, p. 2"
+ },
+ "unit": "1204",
+ "overall_risk": "Elevated",
+ "exposure_total": "$14,200 \u2013 $17,100",
+ "package": {
+  "n_docs": 8,
+  "n_pages": 75,
+  "n_scanned": 16,
+  "n_low_ocr": 1,
+  "files": [
+   "BCS3392 - AGM minutes 2025.pdf",
+   "BCS3392 - Form B.pdf",
+   "BCS3392 - bylaws consolidated.pdf",
+   "BCS3392 - council minutes 2024-2026.pdf",
+   "BCS3392 - depreciation report 2022.pdf",
+   "BCS3392 - envelope assessment 2019.pdf",
+   "BCS3392 - financials FY2025.pdf",
+   "BCS3392 - insurance summary.pdf"
+  ]
+ },
+ "flags": [
+  {
+   "flag_id": "flag01",
+   "category": "special_levies",
+   "thread_id": "t001",
+   "severity": "red",
+   "title": "Roof membrane replacement: levy proposed, not yet voted on",
+   "agent_text": "The minutes track roof membrane replacement through 8 mention(s): 9 Sep 2025: quotes requested; 21 Oct 2025: quotes requested; 8 Nov 2025: quotes received ($780,000 \u2013 $940,000); 8 Apr 2026: deferred ($780,000 \u2013 $940,000); 28 Aug 2026: proposed. The building-level range on the latest priced mention is $780,000 \u2013 $940,000 (Council minutes, 8 Apr 2026, p. 39). No levy has been approved, so nothing appears on the Form B; a buyer reading only that document would see nothing. At this unit's entitlement the share would be $14,200 \u2013 $17,100 ($780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100).",
+   "client_title": "The building is likely heading for a large one-time charge",
+   "client_text": "The strata council has been dealing with roof membrane replacement. Quotes for the whole building came in at $780,000 \u2013 $940,000. Nothing has been voted on yet, so it does not show on any official form. If it goes ahead and is paid for by a special levy, your share would land at roughly $14,000 \u2013 $17,000.",
+   "exposure": "$14,200 \u2013 $17,100",
+   "client_exposure": "Roughly $14,000 \u2013 $17,000",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": 1,
+     "label": "Form B, 28 Aug 2026, p. 1",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 45,
+     "label": "Council minutes, 8 Jul 2026, p. 45",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 39,
+     "label": "Council minutes, 8 Apr 2026, p. 39",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": 4,
+     "label": "Financial statements, 31 Dec 2025, p. 4",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 29,
+     "label": "Council minutes, 8 Nov 2025, p. 29",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - AGM minutes 2025.pdf",
+     "page_number": 1,
+     "label": "General meeting minutes, 21 Oct 2025, p. 1",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": null,
+     "label": "Form B certificate, August 2026",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, July 2026",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, April 2026",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": null,
+     "label": "Financial statements, December 2025",
+     "kind": "page"
+    }
+   ],
+   "rationale": "A levy has been passed, or work with building-level cost at or above $250,000 has quotes or a proposal on the table (whether or not a vote has happened).",
+   "rule_severity": "red",
+   "rule_criteria": "A levy has been passed, or work with building-level cost at or above $250,000 has quotes or a proposal on the table (whether or not a vote has happened).",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": "$780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100"
+  },
+  {
+   "flag_id": "flag04",
+   "category": "building_envelope",
+   "thread_id": "t004",
+   "severity": "red",
+   "title": "Envelope remediation recommended in 2019, completion not determinable",
+   "agent_text": "A building envelope assessment dated 10 May 2019 recommended remediation within the timeframe stated (within five years of this report, that is by 2024), with an opinion of cost of $340,000 \u2013 $420,000 at that date. None of the 25 sets of minutes supplied (12 Sep 2024 to 15 Aug 2026) records the work being tendered or completed. This may mean the work was done before the minutes period begins, or that it remains outstanding. Completion is not determinable from these documents.",
+   "client_title": "An unresolved question about the exterior",
+   "client_text": "In 2019 an engineer found problems with the building's exterior and recommended repairs. Nothing in the records we were given says whether that work happened. It may well have been done. We cannot tell from these documents, and it is worth asking before you go firm.",
+   "exposure": "Not determinable from these documents",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - depreciation report 2022.pdf",
+     "page_number": 4,
+     "label": "Depreciation report, 15 Jun 2022, p. 4",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - envelope assessment 2019.pdf",
+     "page_number": 2,
+     "label": "Engineering report, 10 May 2019, p. 2",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - envelope assessment 2019.pdf",
+     "page_number": 3,
+     "label": "Engineering report, 10 May 2019, p. 3",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - AGM minutes 2025.pdf, BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Absence across 25 council/general meeting minutes, 12 Sep 2024 \u2013 15 Aug 2026",
+     "kind": "absence"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - depreciation report 2022.pdf",
+     "page_number": null,
+     "label": "Depreciation report, June 2022",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - envelope assessment 2019.pdf",
+     "page_number": null,
+     "label": "Engineer's assessment, May 2019",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - AGM minutes 2025.pdf, BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "No follow-up found in the council meeting notes supplied",
+     "kind": "absence"
+    }
+   ],
+   "rationale": "An engineer recommended remediation and no document supplied records the work being tendered or completed.",
+   "rule_severity": "red",
+   "rule_criteria": "An engineer recommended remediation and no document supplied records the work being tendered or completed.",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag02",
+   "category": "contingency_reserve",
+   "thread_id": "t002",
+   "severity": "red",
+   "title": "Reserve fund at 21% of the recommended balance",
+   "agent_text": "The depreciation report recommends a contingency balance of $1,420,000 by 2027. The most recent balance in the documents is $296,507 as at 15 Aug 2026 against annual contributions of $61,000. The gap is wide enough that major work will be funded by levy rather than from reserves.",
+   "client_title": "The building's savings fund is well short of what it needs",
+   "client_text": "Stratas keep a savings fund for big repairs. A professional report said this building should have about $1,420,000 saved by 2027. It currently has around $296,507 and adds roughly $61,000 a year. That shortfall is why repairs here are more likely to be charged to owners directly rather than paid from savings.",
+   "exposure": "Not separately estimable",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 47,
+     "label": "Council minutes, 15 Aug 2026, p. 47",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": 4,
+     "label": "Financial statements, 31 Dec 2025, p. 4",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, August 2026",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": null,
+     "label": "Financial statements, December 2025",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Current contingency balance is below 50% of the depreciation report's recommended balance.",
+   "rule_severity": "red",
+   "rule_criteria": "Current contingency balance is below 50% of the depreciation report's recommended balance.",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag03",
+   "category": "building_envelope",
+   "thread_id": "t003",
+   "severity": "amber",
+   "title": "Roof membrane leaks: 2 water ingress mention(s)",
+   "agent_text": "9 Oct 2024: Roof leak, unit 1801: The owner of unit 1801 reported water staining on the ceiling of the living room after h; 15 Jun 2025: Roof condition: Following a further leak affecting units 1801 and 1802 in May, council resolved to commission .",
+   "client_title": "Water or exterior issues noted in the records",
+   "client_text": "The records mention roof membrane leaks 2 time(s). Ask whether the cause has been fixed.",
+   "exposure": "Not determinable from these documents",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 19,
+     "label": "Council minutes, 15 Jun 2025, p. 19",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 3,
+     "label": "Council minutes, 9 Oct 2024, p. 3",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, June 2025",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, October 2024",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Repeated water ingress in the minutes, or a recommendation whose completion is recorded.",
+   "rule_severity": "amber",
+   "rule_criteria": "Repeated water ingress in the minutes, or a recommendation whose completion is recorded.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag06",
+   "category": "insurance_deductibles",
+   "thread_id": "t006",
+   "severity": "amber",
+   "title": "Water damage deductible at $100,000",
+   "agent_text": "The policy carries a water damage deductible of $100,000 per occurrence, increased from $50,000. Under the bylaws an owner may be pursued for the deductible where a claim originates in their strata lot.",
+   "client_title": "The insurance deductible for water damage is high",
+   "client_text": "If water damage starts in your unit, you could be responsible for a deductible of up to $100,000 depending on the bylaws. This is worth raising with your insurance broker, because personal coverage can be arranged for exactly this.",
+   "exposure": "Up to $100,000 per event",
+   "client_exposure": "Up to $100,000",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": 31,
+     "label": "Council minutes, 14 Dec 2025, p. 31",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - insurance summary.pdf",
+     "page_number": 2,
+     "label": "Insurance summary, 1 Dec 2025, p. 2",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - bylaws consolidated.pdf",
+     "page_number": 2,
+     "label": "Bylaws, p. 2",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - council minutes 2024-2026.pdf",
+     "page_number": null,
+     "label": "Council meeting notes, December 2025",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - insurance summary.pdf",
+     "page_number": null,
+     "label": "Insurance summary, December 2025",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - bylaws consolidated.pdf",
+     "page_number": null,
+     "label": "Bylaws",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Water damage deductible between $50,000 and $250,000, or the water deductible is not stated.",
+   "rule_severity": "amber",
+   "rule_criteria": "Water damage deductible between $50,000 and $250,000, or the water deductible is not stated.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": "water damage deductible $100,000"
+  },
+  {
+   "flag_id": "flag08",
+   "category": "bylaws",
+   "thread_id": "t008",
+   "severity": "amber",
+   "title": "Rental restriction bylaw remains on the books",
+   "agent_text": "A rental restriction bylaw remains in the consolidated bylaws despite the november 2022 provincial changes; whether it is enforceable is a legal question outside what these documents can settle; short-term rentals under 30 days are prohibited; pets are limited by bylaw.",
+   "client_title": "Rules on renting, pets and short stays",
+   "client_text": "Renting the unit out may be restricted by an old bylaw; a lawyer should confirm whether it still applies. Short stays under 30 days are not allowed. Pets are limited.",
+   "exposure": "\u2014",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - bylaws consolidated.pdf",
+     "page_number": 2,
+     "label": "Bylaws, p. 2",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - bylaws consolidated.pdf",
+     "page_number": 3,
+     "label": "Bylaws, p. 3",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - bylaws consolidated.pdf",
+     "page_number": null,
+     "label": "Bylaws",
+     "kind": "page"
+    }
+   ],
+   "rationale": "A rental restriction or age restriction remains on the books. Enforceability after the 2022 Strata Property Act amendments is a legal question.",
+   "rule_severity": "amber",
+   "rule_criteria": "A rental restriction or age restriction remains on the books. Enforceability after the 2022 Strata Property Act amendments is a legal question.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag05",
+   "category": "depreciation_report_currency",
+   "thread_id": "t005",
+   "severity": "amber",
+   "title": "Depreciation report is 4 years old",
+   "agent_text": "The most recent depreciation report dates from June 2022. Cost estimates within it predate recent construction cost movement, so figures drawn from it should be treated as a floor rather than a forecast.",
+   "client_title": "How current the repair forecast is",
+   "client_text": "The building's long-term repair forecast was written in 2022. Costs have moved since then, so treat its figures as a minimum.",
+   "exposure": "\u2014",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - depreciation report 2022.pdf",
+     "page_number": 1,
+     "label": "Depreciation report, 15 Jun 2022, p. 1",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - depreciation report 2022.pdf",
+     "page_number": null,
+     "label": "Depreciation report, June 2022",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Report between three and five years old; cost figures predate recent construction cost movement.",
+   "rule_severity": "amber",
+   "rule_criteria": "Report between three and five years old; cost figures predate recent construction cost movement.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag07",
+   "category": "litigation",
+   "thread_id": "t007",
+   "severity": "note",
+   "title": "No litigation recorded",
+   "agent_text": "Financial statements note: not party to any legal proceedings; Form B: no court proceedings, arbitration or tribunal claims.",
+   "client_title": "No legal disputes recorded",
+   "client_text": "The documents state that the strata is not in any court or tribunal case.",
+   "exposure": "Not determinable from these documents",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": 1,
+     "label": "Form B, 28 Aug 2026, p. 1",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": 4,
+     "label": "Financial statements, 31 Dec 2025, p. 4",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": null,
+     "label": "Form B certificate, August 2026",
+     "kind": "page"
+    },
+    {
+     "source_doc": "BCS3392 - financials FY2025.pdf",
+     "page_number": null,
+     "label": "Financial statements, December 2025",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Form B records no proceedings and the minutes mention none.",
+   "rule_severity": "note",
+   "rule_criteria": "Form B records no proceedings and the minutes mention none.",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag09",
+   "category": "parking_storage",
+   "thread_id": "t009",
+   "severity": "note",
+   "title": "Parking and storage designation stated on the Form B",
+   "agent_text": "Parking: limited common property. Storage: common property allocated by council. A council-allocated locker can be reassigned on notice.",
+   "client_title": "Parking and storage",
+   "client_text": "Your parking stall is tied to the unit on the strata plan. The storage locker is assigned by the council and could in principle be reassigned.",
+   "exposure": "\u2014",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": 1,
+     "label": "Form B, 28 Aug 2026, p. 1",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": null,
+     "label": "Form B certificate, August 2026",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Parking and storage designation is stated (limited common property, common property allocation, or leased).",
+   "rule_severity": "note",
+   "rule_criteria": "Parking and storage designation is stated (limited common property, common property allocation, or leased).",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  },
+  {
+   "flag_id": "flag10",
+   "category": "form_b_unit",
+   "thread_id": "t010",
+   "severity": "note",
+   "title": "Nothing owing on this strata lot",
+   "agent_text": "The Form B dated 28 Aug 2026 records no amount owing. Monthly fees are $612.",
+   "client_title": "Amounts owing on this unit",
+   "client_text": "The seller does not owe the strata anything on this unit as of the certificate date.",
+   "exposure": "\u2014",
+   "client_exposure": "",
+   "citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": 1,
+     "label": "Form B, 28 Aug 2026, p. 1",
+     "kind": "page"
+    }
+   ],
+   "client_citations": [
+    {
+     "source_doc": "BCS3392 - Form B.pdf",
+     "page_number": null,
+     "label": "Form B certificate, August 2026",
+     "kind": "page"
+    }
+   ],
+   "rationale": "Nothing owing on a current Form B.",
+   "rule_severity": "note",
+   "rule_criteria": "Nothing owing on a current Form B.",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is.",
+   "judge_disagreed": false,
+   "narrative_source": "template",
+   "stale": false,
+   "exposure_calc": ""
+  }
+ ],
+ "category_status": [
+  {
+   "category": "special_levies",
+   "label": "Special levies",
+   "state": "flagged",
+   "severity": "red",
+   "text": null
+  },
+  {
+   "category": "building_envelope",
+   "label": "Building envelope",
+   "state": "flagged",
+   "severity": "red",
+   "text": null
+  },
+  {
+   "category": "contingency_reserve",
+   "label": "Contingency reserve",
+   "state": "flagged",
+   "severity": "red",
+   "text": null
+  },
+  {
+   "category": "insurance_deductibles",
+   "label": "Insurance deductible",
+   "state": "flagged",
+   "severity": "amber",
+   "text": null
+  },
+  {
+   "category": "bylaws",
+   "label": "Bylaws and rentals",
+   "state": "flagged",
+   "severity": "amber",
+   "text": null
+  },
+  {
+   "category": "depreciation_report_currency",
+   "label": "Depreciation report currency",
+   "state": "flagged",
+   "severity": "amber",
+   "text": null
+  },
+  {
+   "category": "litigation",
+   "label": "Litigation",
+   "state": "flagged",
+   "severity": "note",
+   "text": null
+  },
+  {
+   "category": "parking_storage",
+   "label": "Parking and storage",
+   "state": "flagged",
+   "severity": "note",
+   "text": null
+  },
+  {
+   "category": "form_b_unit",
+   "label": "Form B and arrears",
+   "state": "flagged",
+   "severity": "note",
+   "text": null
+  }
+ ],
+ "threads": [
+  {
+   "thread_id": "t001",
+   "category": "special_levies",
+   "topic": "roof membrane replacement",
+   "fact_ids": [
+    "f0040",
+    "f0045",
+    "f0001",
+    "f0004",
+    "f0048",
+    "f0083",
+    "f0056",
+    "f0061",
+    "f0013",
+    "f0015"
+   ],
+   "first_date": "2025-06-15",
+   "last_date": "2026-08-28",
+   "latest_status": "proposed",
+   "metrics": {
+    "n_mentions": 10,
+    "first_date": "2025-06-15",
+    "last_date": "2026-08-28",
+    "latest_status": "proposed",
+    "months_since_last_mention": 0.0,
+    "min_building_cost": 780000.0,
+    "max_building_cost": 940000.0,
+    "levy_range_source": "Council minutes, 8 Apr 2026, p. 39",
+    "evidence_fact_ids": [
+     "f0001",
+     "f0004",
+     "f0013",
+     "f0015",
+     "f0040",
+     "f0045",
+     "f0048",
+     "f0056",
+     "f0061",
+     "f0083"
+    ],
+    "stale_single_mention": false,
+    "exposure": "$14,200 \u2013 $17,100",
+    "client_exposure": "Roughly $14,000 \u2013 $17,000",
+    "exposure_calc": "$780,000 \u2013 $940,000 \u00d7 182/10,000 entitlement = $14,200 \u2013 $17,100"
+   },
+   "rule_severity": "red",
+   "rule_criteria": "A levy has been passed, or work with building-level cost at or above $250,000 has quotes or a proposal on the table (whether or not a vote has happened).",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t002",
+   "category": "contingency_reserve",
+   "topic": "contingency reserve balance",
+   "fact_ids": [
+    "f0065",
+    "f0064",
+    "f0066",
+    "f0073",
+    "f0029",
+    "f0030",
+    "f0032",
+    "f0033",
+    "f0034",
+    "f0035",
+    "f0036",
+    "f0037",
+    "f0038",
+    "f0039",
+    "f0042",
+    "f0043",
+    "f0044",
+    "f0046",
+    "f0003",
+    "f0047",
+    "f0049",
+    "f0014",
+    "f0080",
+    "f0081",
+    "f0082",
+    "f0051",
+    "f0052",
+    "f0054",
+    "f0055",
+    "f0057",
+    "f0058",
+    "f0059",
+    "f0062"
+   ],
+   "first_date": "2021-12-31",
+   "last_date": "2026-08-15",
+   "latest_status": "recommended",
+   "metrics": {
+    "n_mentions": 33,
+    "first_date": "2021-12-31",
+    "last_date": "2026-08-15",
+    "latest_status": "recommended",
+    "months_since_last_mention": 0.4,
+    "crf_balance": 296507.0,
+    "crf_balance_date": "2026-08-15",
+    "crf_recommended": 1420000.0,
+    "crf_target_year": "2027",
+    "crf_contribution": 61000.0,
+    "reserve_ratio": 0.209,
+    "evidence_fact_ids": [
+     "f0062",
+     "f0082",
+     "f0081"
+    ],
+    "stale_single_mention": false,
+    "exposure": "Not separately estimable",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "red",
+   "rule_criteria": "Current contingency balance is below 50% of the depreciation report's recommended balance.",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t003",
+   "category": "building_envelope",
+   "topic": "roof membrane leaks",
+   "fact_ids": [
+    "f0031",
+    "f0041"
+   ],
+   "first_date": "2024-10-09",
+   "last_date": "2025-06-15",
+   "latest_status": "discussed",
+   "metrics": {
+    "n_mentions": 2,
+    "first_date": "2024-10-09",
+    "last_date": "2025-06-15",
+    "latest_status": "discussed",
+    "months_since_last_mention": 14.4,
+    "has_remediation_recommendation": false,
+    "has_completion_record": false,
+    "has_tender_record": false,
+    "completion": "not determinable from these documents",
+    "water_ingress_mentions": 2,
+    "recommendation_date": null,
+    "recommendation_deadline_year": null,
+    "min_building_cost": null,
+    "max_building_cost": null,
+    "minutes_searched": {
+     "n": 25,
+     "from": "2024-09-12",
+     "to": "2026-08-15",
+     "files": [
+      "BCS3392 - AGM minutes 2025.pdf",
+      "BCS3392 - council minutes 2024-2026.pdf"
+     ]
+    },
+    "evidence_fact_ids": [
+     "f0031",
+     "f0041"
+    ],
+    "stale_single_mention": false,
+    "exposure": "Not determinable from these documents",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "amber",
+   "rule_criteria": "Repeated water ingress in the minutes, or a recommendation whose completion is recorded.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t004",
+   "category": "building_envelope",
+   "topic": "building envelope sealant remediation",
+   "fact_ids": [
+    "f0075",
+    "f0076",
+    "f0077",
+    "f0078",
+    "f0079",
+    "f0072"
+   ],
+   "first_date": "2019-05-10",
+   "last_date": "2022-06-15",
+   "latest_status": "recommended",
+   "metrics": {
+    "n_mentions": 6,
+    "first_date": "2019-05-10",
+    "last_date": "2022-06-15",
+    "latest_status": "recommended",
+    "months_since_last_mention": 50.5,
+    "has_remediation_recommendation": true,
+    "has_completion_record": false,
+    "has_tender_record": false,
+    "completion": "not determinable from these documents",
+    "water_ingress_mentions": 3,
+    "recommendation_date": "2019-05-10",
+    "recommendation_deadline_year": "2024",
+    "min_building_cost": 340000.0,
+    "max_building_cost": 420000.0,
+    "minutes_searched": {
+     "n": 25,
+     "from": "2024-09-12",
+     "to": "2026-08-15",
+     "files": [
+      "BCS3392 - AGM minutes 2025.pdf",
+      "BCS3392 - council minutes 2024-2026.pdf"
+     ]
+    },
+    "evidence_fact_ids": [
+     "f0072",
+     "f0076",
+     "f0079"
+    ],
+    "stale_single_mention": false,
+    "exposure": "Not determinable from these documents",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "red",
+   "rule_criteria": "An engineer recommended remediation and no document supplied records the work being tendered or completed.",
+   "judge_severity": "red",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t005",
+   "category": "depreciation_report_currency",
+   "topic": "depreciation report",
+   "fact_ids": [
+    "f0063",
+    "f0002",
+    "f0060"
+   ],
+   "first_date": "2022-06-15",
+   "last_date": "2026-07-08",
+   "latest_status": "discussed",
+   "metrics": {
+    "n_mentions": 3,
+    "first_date": "2022-06-15",
+    "last_date": "2026-07-08",
+    "latest_status": "discussed",
+    "months_since_last_mention": 1.7,
+    "report_date": "2022-06-15",
+    "report_age_years": 4.2,
+    "evidence_fact_ids": [
+     "f0063"
+    ],
+    "stale_single_mention": false,
+    "exposure": "\u2014",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "amber",
+   "rule_criteria": "Report between three and five years old; cost figures predate recent construction cost movement.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t006",
+   "category": "insurance_deductibles",
+   "topic": "water damage deductible",
+   "fact_ids": [
+    "f0025",
+    "f0005",
+    "f0086",
+    "f0087",
+    "f0088",
+    "f0089",
+    "f0090",
+    "f0091",
+    "f0092",
+    "f0050"
+   ],
+   "first_date": "2025-10-21",
+   "last_date": "2025-12-14",
+   "latest_status": "discussed",
+   "metrics": {
+    "n_mentions": 10,
+    "first_date": "2025-10-21",
+    "last_date": "2025-12-14",
+    "latest_status": "discussed",
+    "months_since_last_mention": 8.5,
+    "water_deductible": 100000.0,
+    "water_deductible_date": "2025-12-14",
+    "has_chargeback_bylaw": true,
+    "deductible_change": [
+     50000.0,
+     100000.0
+    ],
+    "evidence_fact_ids": [
+     "f0050",
+     "f0025",
+     "f0050",
+     "f0092"
+    ],
+    "stale_single_mention": false,
+    "exposure": "Up to $100,000 per event",
+    "client_exposure": "Up to $100,000",
+    "exposure_calc": "water damage deductible $100,000"
+   },
+   "rule_severity": "amber",
+   "rule_criteria": "Water damage deductible between $50,000 and $250,000, or the water deductible is not stated.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t007",
+   "category": "litigation",
+   "topic": "litigation",
+   "fact_ids": [
+    "f0084",
+    "f0016"
+   ],
+   "first_date": "2025-12-31",
+   "last_date": "2026-08-28",
+   "latest_status": "none",
+   "metrics": {
+    "n_mentions": 2,
+    "first_date": "2025-12-31",
+    "last_date": "2026-08-28",
+    "latest_status": "none",
+    "months_since_last_mention": 0.0,
+    "has_active_litigation": false,
+    "has_threatened_litigation": false,
+    "none_stated": true,
+    "evidence_fact_ids": [
+     "f0016",
+     "f0084"
+    ],
+    "stale_single_mention": false,
+    "exposure": "Not determinable from these documents",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "note",
+   "rule_criteria": "Form B records no proceedings and the minutes mention none.",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t008",
+   "category": "bylaws",
+   "topic": "rental restriction bylaw 41",
+   "fact_ids": [
+    "f0023",
+    "f0024",
+    "f0026",
+    "f0027",
+    "f0053",
+    "f0019"
+   ],
+   "first_date": "2026-02-08",
+   "last_date": "2026-08-28",
+   "latest_status": "discussed",
+   "metrics": {
+    "n_mentions": 6,
+    "first_date": "2026-02-08",
+    "last_date": "2026-08-28",
+    "latest_status": "discussed",
+    "months_since_last_mention": 0.0,
+    "has_rental_restriction": true,
+    "has_age_restriction": false,
+    "has_pet_restriction": true,
+    "has_str_restriction": true,
+    "rentals_count": "19 of 118 strata lots are rented",
+    "evidence_fact_ids": [
+     "f0023",
+     "f0024",
+     "f0026",
+     "f0027"
+    ],
+    "stale_single_mention": false,
+    "exposure": "\u2014",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "amber",
+   "rule_criteria": "A rental restriction or age restriction remains on the books. Enforceability after the 2022 Strata Property Act amendments is a legal question.",
+   "judge_severity": "amber",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t009",
+   "category": "parking_storage",
+   "topic": "storage",
+   "fact_ids": [
+    "f0028",
+    "f0017",
+    "f0018"
+   ],
+   "first_date": "2026-08-28",
+   "last_date": "2026-08-28",
+   "latest_status": "discussed",
+   "metrics": {
+    "n_mentions": 3,
+    "first_date": "2026-08-28",
+    "last_date": "2026-08-28",
+    "latest_status": "discussed",
+    "months_since_last_mention": 0.0,
+    "parking_designation": "lcp",
+    "storage_designation": "cp",
+    "evidence_fact_ids": [
+     "f0017",
+     "f0018"
+    ],
+    "stale_single_mention": false,
+    "exposure": "\u2014",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "note",
+   "rule_criteria": "Parking and storage designation is stated (limited common property, common property allocation, or leased).",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  },
+  {
+   "thread_id": "t010",
+   "category": "form_b_unit",
+   "topic": "form b",
+   "fact_ids": [
+    "f0006",
+    "f0011",
+    "f0012"
+   ],
+   "first_date": "2026-08-28",
+   "last_date": "2026-08-28",
+   "latest_status": "none",
+   "metrics": {
+    "n_mentions": 3,
+    "first_date": "2026-08-28",
+    "last_date": "2026-08-28",
+    "latest_status": "none",
+    "months_since_last_mention": 0.0,
+    "arrears_amount": 0.0,
+    "form_b_date": "2026-08-28",
+    "form_b_age_days": 16,
+    "monthly_fees": 612.4,
+    "evidence_fact_ids": [
+     "f0006",
+     "f0011",
+     "f0012"
+    ],
+    "stale_single_mention": false,
+    "exposure": "\u2014",
+    "client_exposure": "",
+    "exposure_calc": ""
+   },
+   "rule_severity": "note",
+   "rule_criteria": "Nothing owing on a current Form B.",
+   "judge_severity": "note",
+   "judge_rationale": "Mock: rule severity applied as-is."
+  }
+ ],
+ "questions": [
+  "Has the strata obtained updated quotes for the work in the minutes, and is a special levy resolution on the agenda for the next general meeting?",
+  "Has the envelope remediation recommended by the engineer been completed, and is the documentation available?",
+  "Is there a funding plan for the gap between the contingency balance and the depreciation report recommendation?",
+  "What is the current water damage deductible, and has the strata considered a bylaw shifting responsibility to owners?",
+  "Has the strata obtained legal advice on the rental restriction bylaw, and is an amendment planned?",
+  "When is the next depreciation report update scheduled, and has it been budgeted?"
+ ],
+ "low_ocr_pages": [
+  {
+   "source_file": "BCS3392 - council minutes 2024-2026.pdf",
+   "page_number": 10,
+   "ocr_confidence": 49.3
+  }
+ ],
+ "low_confidence_sections": [
+  {
+   "section_id": "s008",
+   "doc_id": "d04",
+   "source_file": "BCS3392 - council minutes 2024-2026.pdf",
+   "doc_type": "council_minutes",
+   "page_start": 9,
+   "page_end": 10,
+   "confidence": 0.58,
+   "low_confidence": true,
+   "meeting_date": "2025-01-08",
+   "title": "MINUTES OF THE STRATA COUNCIL MEETING"
+  }
+ ],
+ "discarded": [],
+ "usage": [
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 876,
+   "output_tokens": 69,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 914,
+   "output_tokens": 78,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 1157,
+   "output_tokens": 109,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2646,
+   "output_tokens": 269,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2747,
+   "output_tokens": 266,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2750,
+   "output_tokens": 271,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2794,
+   "output_tokens": 271,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2890,
+   "output_tokens": 271,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 2605,
+   "output_tokens": 271,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 1789,
+   "output_tokens": 209,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 1059,
+   "output_tokens": 122,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 882,
+   "output_tokens": 124,
+   "mocked": true
+  },
+  {
+   "model": "claude-haiku-4-5",
+   "task": "classify_pages",
+   "input_tokens": 702,
+   "output_tokens": 94,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_agm_sgm_minutes",
+   "input_tokens": 1924,
+   "output_tokens": 719,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_form_b",
+   "input_tokens": 2013,
+   "output_tokens": 1930,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_bylaws",
+   "input_tokens": 1771,
+   "output_tokens": 747,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1864,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1897,
+   "output_tokens": 272,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1760,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1921,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1818,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1957,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1798,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1900,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1826,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1976,
+   "output_tokens": 428,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1867,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1880,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1991,
+   "output_tokens": 264,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1884,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1939,
+   "output_tokens": 290,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1919,
+   "output_tokens": 286,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1830,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1958,
+   "output_tokens": 280,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1856,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 2131,
+   "output_tokens": 294,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1903,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1806,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1860,
+   "output_tokens": 377,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_council_minutes",
+   "input_tokens": 1833,
+   "output_tokens": 125,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_depreciation_report",
+   "input_tokens": 2489,
+   "output_tokens": 1440,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_engineering_report",
+   "input_tokens": 1617,
+   "output_tokens": 661,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_financial_statements",
+   "input_tokens": 1500,
+   "output_tokens": 690,
+   "mocked": true
+  },
+  {
+   "model": "claude-sonnet-5",
+   "task": "extract_insurance_summary",
+   "input_tokens": 1224,
+   "output_tokens": 654,
+   "mocked": true
+  },
+  {
+   "model": "claude-opus-5",
+   "task": "assign_severity",
+   "input_tokens": 13015,
+   "output_tokens": 418,
+   "mocked": true
+  }
+ ]
+}

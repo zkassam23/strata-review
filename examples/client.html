@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strata review — Suite 1204, 2135 Springer Avenue — client copy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#080807;--raised:#141412;--sunk:#0C0C0A;--line:#282824;--soft:#1C1C19;
+  --gold:#C9A24B;--gold-lo:#8C6F31;--gold-hi:#EBDCAC;
+  --paper:#F2F0EA;--dim:#C2BFB5;--muted:#89887F;
+  --red:#D9544F;--red-bg:#241110;--amb:#D99B2F;--amb-bg:#241C0C;--grn:#5FA06B;--grn-bg:#0F1A12;
+  --flag:#E0A33E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--paper);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+h1,h2,.sf{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.15}
+h1{font-size:clamp(32px,4.6vw,50px)}
+h2{font-size:27px;margin-bottom:16px}
+h3{font-size:17px;font-weight:500;margin-bottom:6px}
+p{max-width:66ch;margin-bottom:14px;color:var(--dim)}
+a{color:var(--gold)}
+.muted{color:var(--muted);font-size:14px}
+.gold{color:var(--gold)}
+section{padding:56px 0;border-top:1px solid var(--soft)}
+.rpt{background:var(--raised);border:1px solid var(--line);padding:34px}
+.rpthead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .k{width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--gold)}
+.brand b{font-family:"Cormorant Garamond",serif;font-size:18px;font-weight:500;display:block}
+.brand span{font-size:12.5px;color:var(--muted)}
+.addr{font-family:"Cormorant Garamond",serif;font-size:29px;margin:26px 0 4px}
+.meta{font-size:13.5px;color:var(--muted);margin-bottom:26px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--soft);border:1px solid var(--soft);margin-bottom:28px}
+.tile{background:var(--ink);padding:18px}
+.tile span{font-size:12.5px;color:var(--muted);display:block;margin-bottom:6px}
+.tile b{font-family:"Cormorant Garamond",serif;font-size:27px;font-weight:500;line-height:1}
+.tile b.sm{font-size:19px}
+.sum{margin-bottom:28px}
+.sumrow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 0;border-bottom:1px solid var(--soft);font-size:15px}
+.pill{font-size:11.5px;padding:3px 11px;border-radius:3px;white-space:nowrap}
+.p-red{background:var(--red-bg);color:var(--red)}
+.p-amb{background:var(--amb-bg);color:var(--amb)}
+.p-grn{background:var(--grn-bg);color:var(--grn)}
+.p-mut{background:var(--sunk);color:var(--muted);border:1px solid var(--soft)}
+.fl{border:1px solid var(--line);border-left:3px solid var(--line);padding:20px 22px;margin-bottom:13px}
+.fl.red{border-left-color:var(--red)}
+.fl.amb{border-left-color:var(--amb)}
+.fl .ttl{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:9px;flex-wrap:wrap}
+.fl h3{margin:0;font-size:17px}
+.fl p{font-size:14.5px;margin-bottom:11px}
+.cites{display:flex;flex-wrap:wrap;gap:6px}
+.cite{background:var(--sunk);border:1px solid var(--soft);font-size:11.5px;padding:4px 10px;color:var(--muted)}
+.cite.abs{border-style:dashed}
+.ask{background:var(--sunk);border:1px solid var(--line);padding:22px 24px;margin-top:26px}
+.ask ol{margin:12px 0 0 20px;font-size:14.5px;color:var(--dim)}
+.ask li{margin-bottom:8px}
+.disc{font-size:12.5px;color:var(--muted);margin-top:26px;padding-top:18px;border-top:1px solid var(--line);line-height:1.6}
+.quiet{font-size:14px;color:var(--muted);padding:14px 0 4px;border-top:1px solid var(--soft);margin-top:6px}
+.judge{background:#241B08;border-left:3px solid var(--flag);padding:9px 12px;font-size:13px;color:var(--flag);margin:6px 0 11px;max-width:66ch}
+.rule{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.appx{margin-top:34px;padding-top:24px;border-top:1px solid var(--line)}
+.appx h3{font-family:"Cormorant Garamond",serif;font-size:21px;margin-bottom:10px}
+.appx h4{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px;font-weight:500}
+.appx ul{margin:0 0 6px 18px;font-size:13.5px;color:var(--dim)}
+.appx li{margin-bottom:4px}
+.appx p{font-size:13.5px}
+@media(max-width:720px){.tiles{grid-template-columns:1fr}.rpt{padding:20px}}
+@media print{body{background:#fff;color:#111}.rpt{border:none}}
+</style>
+</head>
+<body>
+<div class="wrap" style="padding-top:40px;padding-bottom:70px">
+  <div class="rpt">
+    <div class="rpthead">
+      <div class="brand">
+        <span class="k">K</span>
+        <span><b>Kassam &amp; Associates</b><span>eXp Realty Canada</span></span>
+      </div>
+      <div style="text-align:right">
+        <div class="muted">Strata due diligence — client copy</div>
+        <div class="muted">13 Sep 2026</div>
+      </div>
+    </div>
+
+    <p class="addr">Suite 1204, 2135 Springer Avenue</p>
+    <p class="meta">Strata plan BCS3392 · Burnaby · 75 pages across 8 documents · built 2009, concrete</p>
+
+    <div class="tiles">
+      <div class="tile"><span>Overall risk</span><b style="color:var(--red)">Elevated</b></div>
+      <div class="tile"><span>Flags</span><b>3 red · 4 amber</b></div>
+      <div class="tile"><span>Estimated one-time cost to you</span><b class="">$14,200 – $17,100</b></div>
+    </div>
+
+    <div class="sum">
+      
+      <div class="sumrow"><span>One-time charges</span>
+        <span class="pill p-red">Red</span>
+        
+      </div>
+      
+      <div class="sumrow"><span>The exterior of the building</span>
+        <span class="pill p-red">Red</span>
+        
+      </div>
+      
+      <div class="sumrow"><span>The building&#39;s savings fund</span>
+        <span class="pill p-red">Red</span>
+        
+      </div>
+      
+      <div class="sumrow"><span>Insurance deductibles</span>
+        <span class="pill p-amb">Amber</span>
+        
+      </div>
+      
+      <div class="sumrow"><span>Rules on renting, pets and short stays</span>
+        <span class="pill p-amb">Amber</span>
+        
+      </div>
+      
+      <div class="sumrow"><span>How current the engineering forecast is</span>
+        <span class="pill p-amb">Amber</span>
+        
+      </div>
+      
+    </div>
+
+    <div id="body">
+      
+      
+      <div class="fl red">
+        <div class="ttl"><h3>The building is likely heading for a large one-time charge</h3>
+          
+          <span class="muted" style="white-space:nowrap">Roughly $14,000 – $17,000</span>
+        </div>
+        <p>The strata council has been dealing with roof membrane replacement. Quotes for the whole building came in at $780,000 – $940,000. Nothing has been voted on yet, so it does not show on any official form. If it goes ahead and is paid for by a special levy, your share would land at roughly $14,000 – $17,000.</p>
+        
+        <div class="cites"><span class="cite">Form B certificate, August 2026</span><span class="cite">Council meeting notes, July 2026</span><span class="cite">Council meeting notes, April 2026</span><span class="cite">Financial statements, December 2025</span></div>
+      </div>
+      
+      
+      <div class="fl red">
+        <div class="ttl"><h3>An unresolved question about the exterior</h3>
+          
+          
+        </div>
+        <p>In 2019 an engineer found problems with the building&#39;s exterior and recommended repairs. Nothing in the records we were given says whether that work happened. It may well have been done. We cannot tell from these documents, and it is worth asking before you go firm.</p>
+        
+        <div class="cites"><span class="cite">Depreciation report, June 2022</span><span class="cite">Engineer&#39;s assessment, May 2019</span><span class="cite abs">No follow-up found in the council meeting notes supplied</span></div>
+      </div>
+      
+      
+      <div class="fl red">
+        <div class="ttl"><h3>The building&#39;s savings fund is well short of what it needs</h3>
+          
+          
+        </div>
+        <p>Stratas keep a savings fund for big repairs. A professional report said this building should have about $1,420,000 saved by 2027. It currently has around $296,507 and adds roughly $61,000 a year. That shortfall is why repairs here are more likely to be charged to owners directly rather than paid from savings.</p>
+        
+        <div class="cites"><span class="cite">Council meeting notes, August 2026</span><span class="cite">Financial statements, December 2025</span></div>
+      </div>
+      
+      
+      <div class="fl amb">
+        <div class="ttl"><h3>Water or exterior issues noted in the records</h3>
+          
+          
+        </div>
+        <p>The records mention roof membrane leaks 2 time(s). Ask whether the cause has been fixed.</p>
+        
+        <div class="cites"><span class="cite">Council meeting notes, June 2025</span><span class="cite">Council meeting notes, October 2024</span></div>
+      </div>
+      
+      
+      <div class="fl amb">
+        <div class="ttl"><h3>The insurance deductible for water damage is high</h3>
+          
+          <span class="muted" style="white-space:nowrap">Up to $100,000</span>
+        </div>
+        <p>If water damage starts in your unit, you could be responsible for a deductible of up to $100,000 depending on the bylaws. This is worth raising with your insurance broker, because personal coverage can be arranged for exactly this.</p>
+        
+        <div class="cites"><span class="cite">Council meeting notes, December 2025</span><span class="cite">Insurance summary, December 2025</span><span class="cite">Bylaws</span></div>
+      </div>
+      
+      
+      <div class="fl amb">
+        <div class="ttl"><h3>Rules on renting, pets and short stays</h3>
+          
+          
+        </div>
+        <p>Renting the unit out may be restricted by an old bylaw; a lawyer should confirm whether it still applies. Short stays under 30 days are not allowed. Pets are limited.</p>
+        
+        <div class="cites"><span class="cite">Bylaws</span></div>
+      </div>
+      
+      
+      <div class="fl amb">
+        <div class="ttl"><h3>How current the repair forecast is</h3>
+          
+          
+        </div>
+        <p>The building&#39;s long-term repair forecast was written in 2022. Costs have moved since then, so treat its figures as a minimum.</p>
+        
+        <div class="cites"><span class="cite">Depreciation report, June 2022</span></div>
+      </div>
+      
+      
+      <p class="quiet">Also checked, nothing found: legal disputes, parking and storage, amounts owing on this unit.</p>
+      
+      
+    </div>
+
+    
+    <div class="ask">
+      <h3>Questions worth asking before you go firm</h3>
+      <ol><li>Has the strata obtained updated quotes for the work in the minutes, and is a special levy resolution on the agenda for the next general meeting?</li><li>Has the envelope remediation recommended by the engineer been completed, and is the documentation available?</li><li>Is there a funding plan for the gap between the contingency balance and the depreciation report recommendation?</li><li>What is the current water damage deductible, and has the strata considered a bylaw shifting responsibility to owners?</li><li>Has the strata obtained legal advice on the rental restriction bylaw, and is an amendment planned?</li><li>When is the next depreciation report update scheduled, and has it been budgeted?</li></ol>
+    </div>
+    
+
+    
+
+    <p class="disc">This summary was prepared for you from the strata documents provided. It is a plain language guide to those documents and is not legal, financial or engineering advice. Please review the documents yourself and speak to your lawyer before removing any conditions.</p>
+  </div>
+</div>
+</body>
+</html>

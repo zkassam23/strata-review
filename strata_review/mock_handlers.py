@@ -343,6 +343,9 @@ def extract_form_b(user: str) -> dict:
         if m:
             cdate = find_date(m.group(1))
             facts.append(_fact("form_b_unit", "form_b_date", f"Form B dated {m.group(1)}", _quote(text, "date of this certificate"), pno, topic="form b", date=cdate))
+        m = rx(r"strata plan ([A-Z]{2,4}\s?\d{2,6})").search(text)
+        if m:
+            facts.append(_fact("building", "strata_plan", f"Strata plan {m.group(1)}", _quote(text, "strata plan"), pno, data={"value": m.group(1).replace(" ", "")}))
         m = rx(r"strata lot (\d+), suite (\d+[a-z]?)").search(text)
         if m:
             facts.append(_fact("building", "strata_lot", f"Strata lot {m.group(1)}", _quote(text, "strata lot"), pno, data={"value": m.group(1)}))

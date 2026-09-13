@@ -132,13 +132,21 @@ def main(argv: list[str] | None = None) -> int:
         settings.tenant["brokerage"] = args.brokerage
     settings.extra["unit"] = args.unit
 
-    state = pipeline.run(Path(args.input), settings=settings, stop_after=args.stop_after, progress=_progress)
-    if args.stop_after in ("ingest", "classify") or not hasattr(state, "result"):
+    state = pipeline.run(Path(args.input), settings=settings, stop_after=args.stop_after, progress=_progress,
+                         out_dir=None if args.stop_after else Path(args.out))
+    if args.stop_after in ("ingest", "classify"):
         print_sections(state)
     if state.facts and args.stop_after == "extract":
         print_facts(state)
-    if state.threads:
+    if state.threads and args.stop_after in ("thread", "anchor"):
         print_threads(state)
+    if state.result:
+        r = state.result
+        print(f"\nOverall risk: {r.overall_risk}   flags: {sum(f.severity=='red' for f in r.flags)} red, {sum(f.severity=='amber' for f in r.flags)} amber, {sum(f.severity=='note' for f in r.flags)} note   exposure: {r.exposure_total}")
+        for f in r.flags:
+            print(f"  [{f.severity.upper():5}] {f.title}" + ("   (judge disagreed)" if f.judge_disagreed else ""))
+        for k, pth in state.outputs.items():
+            print(f"  wrote {pth}")
     print_cost(state)
     if args.dump:
         payload = {"docs": [d.model_dump(exclude={"pages"}) | {"pages": [p.model_dump(exclude={"text"}) for p in d.pages]} for d in state.docs],
