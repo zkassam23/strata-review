@@ -18,6 +18,9 @@ strata-review-web               # http://127.0.0.1:8000
 Without a key the tool runs in offline mock mode (keyword heuristics stand in for the models,
 a banner says so). That is enough to see the pipeline and the pages, not to review a real building.
 
+**Where the brand goes:** `config/tenant.yaml` (`agent_name`, `brokerage`, the two disclaimers). Every report
+and every web page reads it; the CLI `--agent` and `--brokerage` flags override it for one run.
+
 **Where the key goes:** `.env` at the repo root, line `ANTHROPIC_API_KEY=...`. It is read by
 `strata_review/settings.py` at startup. Nothing else needs to change for a real run.
 
