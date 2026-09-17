@@ -65,6 +65,31 @@ staleness rule, wording), `config/models.yaml` (model routing, thresholds, price
 with agent and client tabs and downloads. Jobs run in a background thread and live under `web_jobs/`.
 Single tenant from `config/tenant.yaml`; `web/tenants.py:get_tenant` is the seam for a tenant table. No auth yet.
 
+## Deploy to a public URL (to link or embed from your own site)
+
+Running locally only serves `127.0.0.1` on your own machine — nothing outside it can reach that
+address. To get a URL you can link to, or put in an `<iframe>` on your own website, put it on a
+host that keeps a server running. `Dockerfile` and `render.yaml` in this repo are set up for
+[Render](https://render.com), which has a free tier and needs no server administration:
+
+1. Push this repo to your own GitHub account (or use it directly from `zkassam23/strata-review`
+   if Render can read it there).
+2. In the Render dashboard: **New +** -> **Blueprint** -> pick the repo. Render reads
+   `render.yaml` and builds the `Dockerfile` automatically — nothing to configure.
+3. When it asks for `ANTHROPIC_API_KEY`, paste your key there. It is stored by Render, not in
+   the repo.
+4. Deploy. Render gives you a URL like `https://strata-review-xxxx.onrender.com` in a few minutes.
+   That is the address to link to or embed.
+
+The free tier sleeps after inactivity, so the first load after a quiet spell takes upwards of
+30 seconds while it wakes up; every load after that is normal speed. Any other host that runs a
+Dockerfile (Fly.io, Railway, a VPS) works the same way — the Dockerfile does not assume Render.
+
+This puts the upload, status and report pages on the internet; it is not yet the small
+embeddable lead-capture widget from the prototype (paste-your-email-and-attach-documents on a
+listing page) — that is still on the open list along with PDF export, a completion email, and
+auth.
+
 ## Tests
 
 ```bash

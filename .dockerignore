@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.cache
+web_jobs
+synth/package
+package-merged.pdf
+examples
+report
+tests
+.env

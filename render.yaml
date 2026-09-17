@@ -1,0 +1,12 @@
+# Render Blueprint. In the Render dashboard: New + -> Blueprint -> pick this repo -> it reads
+# this file automatically. The only thing you type in by hand is the API key, in the dashboard,
+# never committed to the repo.
+services:
+  - type: web
+    name: strata-review
+    env: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
